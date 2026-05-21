@@ -23,6 +23,15 @@
 # misc
 .DS_Store
 *.pem
+*.swp
+*.swo
+
+# ide
+.vscode/
+.idea/
+
+# claude code
+.claude/settings.local.json
 
 # debug
 npm-debug.log*
