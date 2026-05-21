@@ -3,6 +3,7 @@ import { notFound } from "next/navigation"
 import { MarkdownRenderer } from "@/components/blog/MarkdownRenderer"
 import { CategoryBadge } from "@/components/blog/CategoryBadge"
 import { TagList } from "@/components/blog/TagBadge"
+import { CommentSection } from "@/components/blog/CommentSection"
 import { formatDateLong } from "@/lib/utils"
 import type { Metadata } from "next"
 
@@ -57,7 +58,7 @@ export default async function PostPage({
 
       {post.content && <MarkdownRenderer content={post.content} />}
 
-      {/* Comment section will go here in Phase 6 */}
+      <CommentSection postId={post.id} />
     </article>
   )
 }
