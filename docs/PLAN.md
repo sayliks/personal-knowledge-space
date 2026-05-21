@@ -277,7 +277,7 @@ CLOUDINARY_API_SECRET="..."
 - [x] ~~文章可见性逻辑修复~~
 - [x] ~~搜索逻辑抽取到 `lib/queries.ts`~~
 - [x] ~~`force-dynamic` 修复构建时数据库连接池耗尽~~
-- [ ] PostCard 空 `publishedAt` 时渲染空 `<time>` 元素
+- [x] ~~PostCard 空 `publishedAt` 时渲染空 `<time>` 元素~~ ✅
 - [ ] `prisma/seed.ts` — 管理员播种脚本
 - [ ] 暗色模式完善
 - [ ] Phase 9：单元测试 + E2E 测试
@@ -315,12 +315,11 @@ CLOUDINARY_API_SECRET="..."
 
 | 优先级 | 问题 | 风险 | 状态 |
 |--------|------|------|------|
-| P2 | PostCard 空 `publishedAt` 时渲染空 `<time>` 元素 | HTML 语义 | 待修复 |
 | P2 | 无测试（单元 + E2E） | 重构风险高 | 待实现 |
 | P3 | RSS + sitemap 用 `AUTH_URL` 代替站点 URL | 配置混淆 | 可优化 |
 | P3 | 无暗色模式切换 | 用户体验 | 可选 |
 
-> ✅ 已修复（自上次审查）：Zod 接入 API routes、文章可见性逻辑、搜索逻辑抽取、force-dynamic 构建修复、middleware 评估移除。
+> ✅ 已修复：Zod 接入 API routes、文章可见性逻辑、搜索逻辑抽取、force-dynamic 构建修复、middleware 评估移除、PostCard 空 time 元素。
 
 ---
 
@@ -766,7 +765,7 @@ test: 添加 createComment Server Action 的单元测试
 | **Week 3** | ⑩ ~~实现 MarkdownRenderer（Phase 3）~~ ✅<br>⑪ ~~搭建后台文章 CRUD（Phase 4）~~ ✅<br>⑫ ~~实现 Server Actions 表单提交~~ ✅<br>⑬ ~~添加 toast 反馈（sonner + PostForm 集成）~~ ✅ | Server Actions、UI 开发 |
 | **Week 4** | ⑭ ~~开发博客公开页面（Phase 5）~~ ✅<br>⑮ ~~实现评论系统（Phase 6）~~ ✅<br>⑯ ~~搜索 + RSS + sitemap（Phase 7-8）~~ ✅<br>⑰ 写第一批单元测试<br>⑱ `npm run build` 零警告 | 完整功能、测试习惯 |
 
-> **当前进度（2026-05-21）**：Phase 0-8 基本完成（仅缺暗色模式），Phase 9 待开始。遗留问题：1 个代码修复（PostCard 空 time）、1 个功能（seed.ts）、测试。
+> **当前进度（2026-05-21）**：Phase 0-8 基本完成（仅缺暗色模式），Phase 9 待开始。遗留：seed.ts、测试、暗色模式。
 
 ---
 
