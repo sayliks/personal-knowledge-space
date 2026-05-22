@@ -205,7 +205,7 @@ post.content (Markdown) → react-markdown + remark-gfm + rehype-highlight
 - ✅ Toast 提示（sonner 已集成到 admin layout + PostForm success/error 反馈）
 - ✅ `npm run build` — 公开页面添加 `force-dynamic` 解决 PgBouncer 连接池耗尽（24 workers vs 15 pool limit）
 - ✅ 暗色模式（next-themes ThemeProvider + ThemeToggle，class 策略，system 默认，mounted 防 hydration 闪烁）
-- ✅ i18n 国际化（next-intl，zh/en 双语，13 个命名空间 ~80 keys，含 error/not-found/admin 全覆盖）
+- ✅ i18n 国际化（next-intl，zh/en 双语，13 个命名空间 ~80 keys，cookie 驱动无 URL 前缀，accept-language 回退）
 
 ### Phase 9：测试
 - 单元测试（Jest）
@@ -285,7 +285,7 @@ CLOUDINARY_API_SECRET="..."
 - [x] ~~`prisma/seed.ts` — 管理员播种脚本~~ ✅
 - [x] ~~i18n 国际化（next-intl，zh/en 双语，13 个命名空间）~~ ✅
 - [x] ~~暗色模式（next-themes ThemeProvider + ThemeToggle）~~ ✅
-- [x] ~~`middleware.ts` 重新引入（next-intl，无 Prisma 依赖，Edge 安全）~~ ✅
+- [x] ~~middleware.ts 重新引入后又移除（改用 cookie 驱动，`i18n/request.ts` 读取 `NEXT_LOCALE` cookie + accept-language 回退，LanguageToggle 写 cookie + router.refresh()，无需 URL 前缀）~~ ✅
 - [ ] Phase 9：单元测试 + E2E 测试
 
 ---
