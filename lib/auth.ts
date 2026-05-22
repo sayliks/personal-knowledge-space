@@ -44,19 +44,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async jwt({ token, user, account }) {
       if (user) {
-        token.id = user.id
+        token.id = user.id as string
       }
       if (account?.provider === "github" && user?.image) {
-        token.picture = user.image
+        token.picture = user.image as string
       }
       return token
     },
     async session({ session, token }) {
       if (session.user && token.id) {
-        session.user.id = token.id
+        session.user.id = token.id as string
       }
       if (session.user && token.picture) {
-        session.user.image = token.picture
+        session.user.image = token.picture as string
       }
       return session
     },
