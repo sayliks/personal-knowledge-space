@@ -31,7 +31,10 @@
       "Bash(npx jest *)",
       "Bash(npm test *)",
       "Bash(npx playwright *)",
-      "Bash(npx tsx *)"
+      "Bash(npx tsx *)",
+      "Bash(gh api *)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:api.github.com)"
     ]
   }
 }
