@@ -33,19 +33,19 @@ const notoSerifSC = Noto_Serif_SC({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.AUTH_URL ?? "http://localhost:3000"),
   title: {
-    default: "frostsalix blog",
-    template: "%s | frostsalix blog",
+    default: "frostsalix's blog",
+    template: "%s | frostsalix's blog",
   },
   description: "A personal blog built with Next.js",
   openGraph: {
     type: "website",
-    siteName: "frostsalix blog",
-    title: "frostsalix blog",
+    siteName: "frostsalix's blog",
+    title: "frostsalix's blog",
     description: "A personal blog built with Next.js",
   },
   twitter: {
     card: "summary",
-    title: "frostsalix blog",
+    title: "frostsalix's blog",
     description: "A personal blog built with Next.js",
   },
   robots: {
