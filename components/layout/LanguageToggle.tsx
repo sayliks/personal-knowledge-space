@@ -1,26 +1,23 @@
 "use client"
 
 import { useLocale } from "next-intl"
-import { useTransition } from "react"
-import { useRouter, usePathname } from "@/i18n/navigation"
+import { useRouter } from "next/navigation"
+
+const LOCALE_COOKIE = "NEXT_LOCALE"
 
 export function LanguageToggle() {
   const locale = useLocale()
   const router = useRouter()
-  const pathname = usePathname()
-  const [isPending, startTransition] = useTransition()
 
   function toggle() {
     const next = locale === "zh" ? "en" : "zh"
-    startTransition(() => {
-      router.replace(pathname, { locale: next })
-    })
+    document.cookie = `${LOCALE_COOKIE}=${next}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Lax`
+    router.refresh()
   }
 
   return (
     <button
       onClick={toggle}
-      disabled={isPending}
       className="inline-flex items-center justify-center rounded-md size-8 text-xs font-medium hover:bg-muted transition-colors"
       aria-label="Switch language"
     >

@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server"
-import { Link } from "@/i18n/navigation"
+import Link from "next/link"
 import { ThemeToggle } from "@/components/layout/ThemeToggle"
 import { LanguageToggle } from "@/components/layout/LanguageToggle"
 
