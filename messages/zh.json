@@ -41,7 +41,8 @@
     "failedToSubmitComment": "提交评论失败",
     "signInWithGithub": "使用 GitHub 登录",
     "signedInAs": "已登录为 {name}",
-    "signOut": "退出登录"
+    "signOut": "退出登录",
+    "loginRequiredToComment": "请使用 GitHub 登录后才能发表评论。"
   },
   "admin": {
     "blogAdmin": "博客管理",

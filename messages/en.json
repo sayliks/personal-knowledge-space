@@ -40,7 +40,8 @@
     "failedToSubmitComment": "Failed to submit comment",
     "signInWithGithub": "Sign in with GitHub",
     "signedInAs": "Signed in as {name}",
-    "signOut": "Sign out"
+    "signOut": "Sign out",
+    "loginRequiredToComment": "Please sign in with GitHub to leave a comment."
   },
   "admin": {
     "blogAdmin": "Blog Admin",

@@ -5,18 +5,16 @@ import { useRouter } from "next/navigation"
 import { useTranslations } from "next-intl"
 import { useSession, signIn, signOut } from "next-auth/react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 
 export function CommentForm({ postId }: { postId: string }) {
   const t = useTranslations("post")
+  const tc = useTranslations("common")
   const { data: session, status } = useSession()
   const isAuthenticated = status === "authenticated"
   const isLoading = status === "loading"
 
-  const [authorName, setAuthorName] = useState("")
-  const [authorEmail, setAuthorEmail] = useState("")
   const [content, setContent] = useState("")
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState("")
@@ -24,14 +22,17 @@ export function CommentForm({ postId }: { postId: string }) {
   const router = useRouter()
 
   useEffect(() => {
-    if (isAuthenticated && session?.user) {
-      setAuthorName(session.user.name ?? "")
-      setAuthorEmail(session.user.email ?? "")
+    if (!isAuthenticated) {
+      setContent("")
+      setError("")
+      setSuccess(false)
     }
-  }, [isAuthenticated, session])
+  }, [isAuthenticated])
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    if (!session?.user) return
+
     setSubmitting(true)
     setError("")
 
@@ -40,10 +41,10 @@ export function CommentForm({ postId }: { postId: string }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         postId,
-        authorName,
-        authorEmail: authorEmail || undefined,
+        authorName: session.user.name ?? "",
+        authorEmail: session.user.email ?? "",
+        userId: session.user.id,
         content,
-        ...(session?.user?.id ? { userId: session.user.id } : {}),
       }),
     })
 
@@ -59,23 +60,19 @@ export function CommentForm({ postId }: { postId: string }) {
     setSubmitting(false)
   }
 
-  if (success) {
+  if (isLoading) {
     return (
-      <p className="text-sm text-muted-foreground py-4">
-        {t("commentSubmitted")}
-      </p>
+      <div className="border-t pt-6 mt-6">
+        <p className="text-sm text-muted-foreground">{tc("loading")}</p>
+      </div>
     )
   }
 
-  return (
-    <form onSubmit={handleSubmit} className="space-y-4 border-t pt-6 mt-6">
-      <h3 className="font-semibold">{t("leaveComment")}</h3>
-
-      {isLoading && (
-        <p className="text-sm text-muted-foreground">{t("submitting")}</p>
-      )}
-
-      {!isLoading && !isAuthenticated && (
+  if (!isAuthenticated) {
+    return (
+      <div className="space-y-4 border-t pt-6 mt-6">
+        <h3 className="font-semibold">{t("leaveComment")}</h3>
+        <p className="text-sm text-muted-foreground">{t("loginRequiredToComment")}</p>
         <Button
           type="button"
           variant="outline"
@@ -86,18 +83,22 @@ export function CommentForm({ postId }: { postId: string }) {
           </svg>
           {t("signInWithGithub")}
         </Button>
-      )}
+      </div>
+    )
+  }
 
-      {isAuthenticated && session?.user && (
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          {session.user.image && (
+  if (success) {
+    return (
+      <div className="border-t pt-6 mt-6">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+          {session.user?.image && (
             <img
               src={session.user.image}
               alt=""
               className="size-6 rounded-full"
             />
           )}
-          <span>{t("signedInAs", { name: session.user.name ?? "" })}</span>
+          <span>{t("signedInAs", { name: session.user?.name ?? "" })}</span>
           <button
             type="button"
             onClick={() => signOut()}
@@ -106,36 +107,35 @@ export function CommentForm({ postId }: { postId: string }) {
             {t("signOut")}
           </button>
         </div>
-      )}
+        <p className="text-sm text-muted-foreground">{t("commentSubmitted")}</p>
+      </div>
+    )
+  }
 
-      {!isAuthenticated && (
-        <div className="grid grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <Label htmlFor="name">{t("name")} *</Label>
-            <Input
-              id="name"
-              value={authorName}
-              onChange={(e) => setAuthorName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="email">{t("email")}</Label>
-            <Input
-              id="email"
-              type="email"
-              value={authorEmail}
-              onChange={(e) => setAuthorEmail(e.target.value)}
-            />
-          </div>
-        </div>
-      )}
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4 border-t pt-6 mt-6">
+      <h3 className="font-semibold">{t("leaveComment")}</h3>
+
+      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        {session.user?.image && (
+          <img
+            src={session.user.image}
+            alt=""
+            className="size-6 rounded-full"
+          />
+        )}
+        <span>{t("signedInAs", { name: session.user?.name ?? "" })}</span>
+        <button
+          type="button"
+          onClick={() => signOut()}
+          className="text-xs underline hover:text-foreground"
+        >
+          {t("signOut")}
+        </button>
+      </div>
 
       <div className="space-y-2">
-        <Label htmlFor="content">
-          {t("content")}{" "}
-          {isAuthenticated && <span className="text-muted-foreground font-normal">(*)</span>}
-        </Label>
+        <Label htmlFor="content">{t("content")}</Label>
         <Textarea
           id="content"
           value={content}
