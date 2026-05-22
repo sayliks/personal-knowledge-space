@@ -207,13 +207,14 @@ post.content (Markdown) → react-markdown + remark-gfm + rehype-highlight
 - ✅ 暗色模式（next-themes ThemeProvider + ThemeToggle，class 策略，system 默认，mounted 防 hydration 闪烁）
 - ✅ i18n 国际化（next-intl，zh/en 双语，13 个命名空间 ~80 keys，cookie 驱动无 URL 前缀，accept-language 回退）
 
-### Phase 9：测试 🔄（进行中）
+### Phase 9：测试 ✅（已完成）
 - ✅ 单元测试框架搭建（Jest 30 + next/jest + @testing-library）
 - ✅ `__tests__/lib/slug.test.ts` — 7 tests（generateSlug）
 - ✅ `__tests__/lib/utils.test.ts` — 9 tests（formatDate, formatDateLong, cn）
-- ✅ `__tests__/lib/validations.test.ts` — 11 tests（4 schemas safeParse 全覆盖），全部 30 tests 通过
+- ✅ `__tests__/lib/validations.test.ts` — 11 tests（4 schemas safeParse 全覆盖）
 - ✅ E2E 测试（Playwright + Chromium, `e2e/homepage.spec.ts` — 6 tests: zh/en 渲染, 导航, 语言切换, logo 链接）
-- ⬜ 组件测试（@testing-library/react）
+- ✅ 组件测试（@testing-library/react）— 4 suites 17 tests: CategoryBadge (3), TagBadge/TagList (6), Pagination (7), MarkdownRenderer (1)
+- ✅ 全部 47 tests 通过，`npm run build` 成功
 
 ### Phase 10：GitHub OAuth + 评论增强 ✅（已完成）
 - ✅ `lib/auth.ts` — 添加 GitHub provider（条件启用，通过 env 配置）
@@ -300,7 +301,7 @@ CLOUDINARY_API_SECRET="..."
 - [x] ~~i18n 国际化（next-intl，zh/en 双语，13 个命名空间）~~ ✅
 - [x] ~~暗色模式（next-themes ThemeProvider + ThemeToggle）~~ ✅
 - [x] ~~middleware.ts 重新引入后又移除（改用 cookie 驱动，`i18n/request.ts` 读取 `NEXT_LOCALE` cookie + accept-language 回退，LanguageToggle 写 cookie + router.refresh()，无需 URL 前缀）~~ ✅
-- [ ] Phase 9：组件测试（@testing-library/react）
+- [x] ~~Phase 9：组件测试（@testing-library/react）~~ ✅
 
 ---
 
@@ -335,7 +336,7 @@ CLOUDINARY_API_SECRET="..."
 
 | 优先级 | 问题 | 风险 | 状态 |
 |--------|------|------|------|
-| P2 | 组件测试待完善 | 重构风险中 | 进行中（lib 单元测试 30 tests + E2E 6 tests 已完成） |
+| - | - | - | 全部 10 个 Phase 已完成，47 tests 全部通过 |
 | P3 | RSS feed 已移除（`f2390b4`），sitemap 保留 | 功能取舍 | 已决策 |
 
 > ✅ 已修复：Zod 接入 API routes、文章可见性、搜索逻辑抽取、force-dynamic 构建修复、middleware 评估移除、PostCard 空 time、env.ts 全链路接入（prisma/sitemap/RSS）、error.tsx/not-found.tsx i18n。
@@ -784,7 +785,7 @@ test: 添加 createComment Server Action 的单元测试
 | **Week 3** | ⑩ ~~实现 MarkdownRenderer（Phase 3）~~ ✅<br>⑪ ~~搭建后台文章 CRUD（Phase 4）~~ ✅<br>⑫ ~~实现 Server Actions 表单提交~~ ✅<br>⑬ ~~添加 toast 反馈（sonner + PostForm 集成）~~ ✅ | Server Actions、UI 开发 |
 | **Week 4** | ⑭ ~~开发博客公开页面（Phase 5）~~ ✅<br>⑮ ~~实现评论系统（Phase 6）~~ ✅<br>⑯ ~~搜索 + RSS + sitemap（Phase 7-8）~~ ✅<br>⑰ ~~写第一批单元测试~~ ✅（30 tests, lib/）<br>⑱ `npm run build` 零警告 | 完整功能、测试习惯 |
 
-> **当前进度（2026-05-22）**：Phase 0-10 全部完成。Phase 9 进行中 — 单元测试框架已搭建（Jest 30），lib/ 工具函数和 Zod schema 30 tests 全部通过，E2E 测试 6 tests 已完成。仅剩组件测试待实现。
+> **当前进度（2026-05-22）**：Phase 0-10 全部完成。47 tests 全部通过（30 lib + 17 component），6 E2E tests，`npm run build` 成功。
 
 ---
 
