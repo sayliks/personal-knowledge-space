@@ -23,6 +23,27 @@
 
 ---
 
+## 审查 #10 — 2026-05-27 21:10
+
+**分支**: master (ahead of origin by 8 commits)
+**未提交业务变更**:
+
+- `components/blog/KnowledgeGraph.tsx` — 新增 `GraphNode` 类型导出 + useEffect 拆分
+- `components/layout/ThemeToggle.tsx` — useEffect 单行 → 多行
+
+### 本次审查结果
+
+**KnowledgeGraph.tsx 变更合理，无问题。**
+
+- 新增 `export type GraphNode = GraphData["nodes"][number] & Record<string, any>`: 为 react-force-graph-2d 节点类型设计，eslint-disable 恰当
+- useEffect 拆分: `setMounted(true)` 和数据获取分为两个 effect，数据获取依赖 `mounted`，更清晰
+- 注意: `GraphNode` 与 `lib/graph.ts` 的同名接口类型不同（多了 `Record<string, any>`），目前无冲突
+
+**ThemeToggle.tsx**: 纯格式调整，无风险
+**文档**: PLAN.md、refactoring.md 与代码一致
+
+---
+
 ## 审查 #9 — 2026-05-27 21:00（文档深度审查，第三轮）
 
 **范围**: 全部文档与代码交叉验证
@@ -58,25 +79,3 @@
 - 文档说 client 生成到 `app/generated/prisma/`，实际 `schema.prisma` 写 `output = "../app/generated/prisma"`（相对 prisma/ 目录）
 - 说法正确但容易误解
 - 修复: 加注 "(relative to prisma/ directory)"
-
----
-
-## 审查 #7 — 2026-05-27 20:35
-
-**变更**: 还原 Backlinks.tsx（定时任务误改业务代码），更新定时任务规则禁止修改业务代码
-
-**未提交业务变更**:
-
-- `components/blog/Backlinks.tsx` — try/catch → .catch() 改动已还原（超出审查范围）
-
----
-
-## 审查 #6 — 2026-05-27 20:30（文档深度审查）
-
-**范围**: `docs/` + CLAUDE.md + AGENTS.md
-
-**[中]** CLAUDE.md:100 Backlinks.tsx 错误处理描述过时 → 仍为 try/catch，实际已改为 .catch()
-
-**[低]** CLAUDE.md:72 i18n 命名空间 "~13" → 实际 15 个
-
-**[低]** refactoring.md pgvector 需要前置说明
