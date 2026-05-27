@@ -3,10 +3,9 @@ import remarkGfm from "remark-gfm"
 import rehypeHighlight from "rehype-highlight"
 import rehypeSlug from "rehype-slug"
 import { remarkWikiLink } from "@/lib/remark-wiki-link"
-import type { PluggableList } from "react-markdown"
 
-const remarkPlugins: PluggableList = [remarkWikiLink, remarkGfm]
-const rehypePlugins: PluggableList = [rehypeHighlight, rehypeSlug]
+const remarkPlugins = [remarkWikiLink, remarkGfm]
+const rehypePlugins = [rehypeHighlight, rehypeSlug]
 
 interface MarkdownRendererProps {
   content: string
