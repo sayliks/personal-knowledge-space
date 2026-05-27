@@ -1,4 +1,4 @@
-# frostsalix's blog
+# sayliks's blog
 
 A personal full-stack blog with an Obsidian-style knowledge graph, built with Next.js 16.
 
