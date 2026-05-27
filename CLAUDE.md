@@ -28,7 +28,7 @@ npx prisma generate       # Runs automatically via `postinstall`
 
 - **Framework**: Next.js 16 App Router, React 19
 - **DB**: PostgreSQL on Supabase via Prisma 7 + `@prisma/adapter-pg`
-- **Auth**: Auth.js v5 (next-auth beta) with Credentials provider + bcryptjs, optional GitHub OAuth (conditional on env vars)
+- **Auth**: Auth.js v5 (next-auth beta) with Credentials + GitHub OAuth (conditional on env vars)
 - **UI**: shadcn/ui (`base-nova` style, neutral base color), Tailwind CSS v4
 - **Validation**: Zod 4
 - **i18n**: next-intl 4 (zh default, en)
@@ -69,7 +69,7 @@ Pages **do not call Prisma directly**. All read queries live in `lib/queries.ts`
   3. Default: `zh` (see `i18n/routing.ts`)
 - Switching languages writes the cookie and calls `router.refresh()` — there is no `[locale]` segment in the route tree.
 - `next.config.ts` wraps the config with `createNextIntlPlugin()`.
-- Messages live in `messages/{en,zh}.json` organised into ~13 namespaces.
+- Messages live in `messages/{en,zh}.json` organised into ~15 namespaces.
 - Server components: use `getTranslations("namespace")` from `next-intl/server`. Client components: `useTranslations()`.
 - `generateMetadata` functions use `getTranslations` for localised SEO metadata.
 
@@ -97,7 +97,7 @@ Wiki-link syntax (`[[target|alias]]`) is supported. The regex and `extractWikiLi
 
 ### Knowledge graph
 
-`components/blog/KnowledgeGraph.tsx` renders a force-directed graph using `react-force-graph-2d` (client-only, dynamic import). Data comes from `/api/graph` → `lib/graph.ts` which builds nodes/links from wiki-link references between posts. `components/blog/Backlinks.tsx` (server component, wrapped in try/catch) shows incoming wiki-links on each post page. The graph API is available at `/api/graph`.
+`components/blog/KnowledgeGraph.tsx` renders a force-directed graph using `react-force-graph-2d` (client-only, dynamic import). Data comes from `/api/graph` → `lib/graph.ts` which builds nodes/links from wiki-link references between posts. `components/blog/Backlinks.tsx` (server component, error handling via `.catch()`) shows incoming wiki-links on each post page. The graph API is available at `/api/graph`.
 
 ## Conventions
 
@@ -109,4 +109,4 @@ Wiki-link syntax (`[[target|alias]]`) is supported. The regex and `extractWikiLi
 
 ## Reference
 
-- `docs/PLAN.md` — full project roadmap and architecture reference (Phase 0–11 completed).
+- `docs/plan.md` — full project roadmap and architecture reference (Phase 0–11 completed).

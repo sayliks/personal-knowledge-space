@@ -42,7 +42,7 @@ Locale resolved from `NEXT_LOCALE` cookie → `Accept-Language` header → defau
 - `app/` — App Router pages & API routes
 - `components/` — UI: `ui/` (primitives), `layout/`, `blog/`, `admin/`
 - `lib/` — Shared: `prisma.ts`, `auth.ts`, `queries.ts`, `validations.ts`, `env.ts`, `wiki-link.ts`
-- `messages/` — i18n: `en.json`, `zh.json` (~13 namespaces)
+- `messages/` — i18n: `en.json`, `zh.json` (~15 namespaces)
 - `prisma/` — Schema, seed, migrations
 
 ## Conventions
@@ -52,4 +52,4 @@ Locale resolved from `NEXT_LOCALE` cookie → `Accept-Language` header → defau
 - New strings: add to both `messages/en.json` and `messages/zh.json`
 
 ## Reference
-- `docs/PLAN.md` — architecture roadmap (Phase 0–11 completed)
+- `docs/plan.md` — architecture roadmap (Phase 0–11 completed)
