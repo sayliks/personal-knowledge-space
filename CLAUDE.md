@@ -109,4 +109,4 @@ Wiki-link syntax (`[[target|alias]]`) is supported. The regex and `extractWikiLi
 
 ## Reference
 
-- `docs/plan.md` — full project roadmap and architecture reference (Phase 0–11 completed).
+- `docs/PLAN.md` — full project roadmap and architecture reference (Phase 0–11 completed).

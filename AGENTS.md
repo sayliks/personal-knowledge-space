@@ -2,7 +2,7 @@
 
 ## Setup
 ```bash
-npm install && cp .env.example .env  # Fill DATABASE_URL, DIRECT_URL, AUTH_SECRET
+npm install && cp .env.example .env  # See .env.example for required variables
 npx prisma db push && npm run seed    # Seed admin user
 npm run dev
 ```
@@ -52,4 +52,4 @@ Locale resolved from `NEXT_LOCALE` cookie → `Accept-Language` header → defau
 - New strings: add to both `messages/en.json` and `messages/zh.json`
 
 ## Reference
-- `docs/plan.md` — architecture roadmap (Phase 0–11 completed)
+- `docs/PLAN.md` — architecture roadmap (Phase 0–11 completed)
