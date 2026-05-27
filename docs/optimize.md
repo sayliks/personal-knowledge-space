@@ -4,6 +4,17 @@
 
 ---
 
+## 审查 #13 — 2026-05-28 00:35
+
+**分支**: master (ahead of origin by 26 commits)
+**未提交变更**: 同前次审查，仅 jest 测试配置 + .claude 配置，无业务代码
+
+### #13 审查结论
+
+**本次无业务代码变更。**
+
+---
+
 ## 审查 #12 — 2026-05-28 00:30
 
 **分支**: master (ahead of origin by 26 commits)
@@ -12,25 +23,6 @@
 ### #12 审查结论
 
 **本次无业务代码变更。** 与审查 #11 状态一致。
-
----
-
-## 审查 #11 — 2026-05-28 00:25
-
-**分支**: master (ahead of origin by 25 commits)
-**未提交变更**: 仅测试基础设施（jest.config.mjs、MarkdownRenderer.test.tsx）+ .claude 配置，无业务代码
-
-**最近提交**:
-
-- `639181c` fix: security, error handling, i18n, and consistency issues — 审查 #7~#9 发现的所有业务代码问题已提交
-
-### #11 审查结论
-
-**本次无业务代码变更。**
-
-- `639181c` 已提交此前审查的所有修复（安全、错误处理、i18n、可访问性、一致性）
-- 剩余未提交：jest ESM 兼容配置（transformIgnorePatterns + rehype-raw mock）
-- 剩余低优先级问题同审查 #9
 
 ---
 
