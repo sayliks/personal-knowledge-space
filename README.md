@@ -1,4 +1,4 @@
-# frostsalix's blog
+# sayliks's blog
 
 A personal full-stack blog built with Next.js 16.
 

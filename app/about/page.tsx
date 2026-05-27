@@ -49,12 +49,12 @@ export default async function AboutPage() {
           <li>
             GitHub:{" "}
             <a
-              href="https://github.com/frostsalix"
+              href="https://github.com/sayliks"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:underline"
             >
-              github.com/frostsalix
+              github.com/sayliks
             </a>
           </li>
         </ul>
