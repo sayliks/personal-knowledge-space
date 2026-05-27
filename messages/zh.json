@@ -9,25 +9,10 @@
     "tryAgain": "重试",
     "loading": "加载中..."
   },
-  "home": {
-    "siteTitle": "sayliks's blog",
-    "tagline": "全栈开发者，构建有价值的软件。",
-    "recentPosts": "最新文章"
-  },
-  "graph": {
-    "subtitle": "文章之间的链接关系",
-    "loading": "正在加载图谱...",
-    "backlinks": "被引用"
-  },
-  "posts": {
-    "title": "文章",
-    "noPosts": "暂无文章。"
-  },
+
   "about": {
     "title": "关于",
-    "bio": "梦想是在田野里睡觉",
-    "location": "所在地",
-    "locationValue": "湖北 武汉",
+    "bio": "梦想是成为一个有趣的人",
 
     "skills": "技术栈与工具",
     "links": {
