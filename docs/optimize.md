@@ -4,6 +4,25 @@
 
 ---
 
+## 审查 #11 — 2026-05-28 00:25
+
+**分支**: master (ahead of origin by 25 commits)
+**未提交变更**: 仅测试基础设施（jest.config.mjs、MarkdownRenderer.test.tsx）+ .claude 配置，无业务代码
+
+**最近提交**:
+
+- `639181c` fix: security, error handling, i18n, and consistency issues — 审查 #7~#9 发现的所有业务代码问题已提交
+
+### #11 审查结论
+
+**本次无业务代码变更。**
+
+- `639181c` 已提交此前审查的所有修复（安全、错误处理、i18n、可访问性、一致性）
+- 剩余未提交：jest ESM 兼容配置（transformIgnorePatterns + rehype-raw mock）
+- 剩余低优先级问题同审查 #9
+
+---
+
 ## 审查 #10 — 2026-05-28 00:20
 
 **分支**: master (ahead of origin by 23 commits)
@@ -73,44 +92,3 @@
 - Footer.tsx 空组件
 - Pagination、SearchForm、AdminLayoutClient aria-label 缺失
 - Admin 页面直接调用 Prisma
-
----
-
-## 审查 #8 — 2026-05-28 00:00
-
-**分支**: master (ahead of origin by 21 commits)
-**未提交业务变更** (8 files, +167/-107): 批量修复审查 #7 问题
-
-### 已修复（审查 #7 问题）
-
-**安全**:
-
-- ✅ [高] comments/route.ts — `userId` 不再来自请求体，改用 `session.user.id`
-- ✅ [高] posts/route.ts — 标签替换改为 `prisma.$transaction()` 事务
-- ✅ [高] posts/route.ts — `session.user.id!` 非空断言已移除，添加 `!session.user.id` 检查
-- ✅ [中] posts/route.ts — id 使用 `z.string().cuid()` 校验（PUT + DELETE）
-
-**错误处理**:
-
-- ✅ [高] posts/route.ts — Prisma create/update/delete 全部加 try/catch + console.error
-- ✅ [中] comments/route.ts — Prisma create + findMany 加 try/catch
-- ✅ [中] graph/route.ts — catch 中添加 console.error
-- ✅ [中] CommentForm.tsx — fetch 改为 try/catch/finally，`setSubmitting(false)` 放入 finally
-- ✅ [中] SearchDialog.tsx — 添加 `if (!res.ok) throw`
-
-**i18n / 一致性**:
-
-- ✅ [高] RecentPosts.tsx — `<a>` → `<Link>`，`toLocaleDateString("zh-CN")` → `formatDate()`
-- ✅ [中] 两个 route 添加 `request.json()` try/catch
-- ✅ [低] SearchDialog.tsx — 移除多余的 `"搜索中..."` 回退
-- ✅ [低] posts/route.ts + comments/route.ts — 添加 `export const runtime = "nodejs"`
-- ✅ validations.ts — 移除 `userId` 字段
-
-### #8 审查结论
-
-**变更合理，是审查 #7 发现问题的系统性修复。**
-
-- 所有 4 个高优先级安全问题已解决
-- 绝大部分中优先级错误处理问题已解决
-- 无新引入问题
-- 剩余未修复：可访问性（alt=""、aria-label）、死代码、Admin 直接调用 Prisma
