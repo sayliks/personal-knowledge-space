@@ -4,6 +4,21 @@
 
 ---
 
+## 审查 #17 — 2026-05-28 00:55
+
+**分支**: master (ahead of origin by 29 commits)
+**未提交变更**: `app/layout.tsx` body suppressHydrationWarning（已审查，无问题）+ .claude 配置
+
+**最近提交**:
+
+- `973b287` fix: resolve ThemeToggle hydration mismatch — 审查 #16 发现的修改已提交
+
+### #17 审查结论
+
+**本次无新业务代码变更。** layout.tsx 修改已在审查 #16 中审查通过。
+
+---
+
 ## 审查 #16 — 2026-05-28 00:50
 
 **分支**: master (ahead of origin by 28 commits)
@@ -23,17 +38,6 @@
 - 类型安全：`resolvedTheme` 在 next-themes 中类型为 `string | undefined`，三元表达式正确处理 undefined
 
 **剩余低优先级问题同审查 #9**（Admin 校验、CommentForm alt、Footer、aria-label 等）
-
----
-
-## 审查 #15 — 2026-05-28 00:45
-
-**分支**: master (ahead of origin by 28 commits)
-**未提交变更**: 仅 jest 测试配置 + .claude 配置，无业务代码
-
-### #15 审查结论
-
-**本次无业务代码变更。**
 
 ---
 
