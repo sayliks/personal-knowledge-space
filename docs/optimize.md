@@ -1,15 +1,14 @@
-# 剩余待优化项
+# 代码审查与文档优化记录
 
-> 来自自动化代码审查，按优先级排列。
+> 每 5 分钟自动审查
 
-## 中优先级
+---
 
-- [ ] Admin 服务端操作输入校验 — `formData.get` 改用 Zod schema 校验
-- [ ] Admin 页面直接调用 Prisma — 应迁移到 `lib/queries.ts` 查询层
+## 审查 #1 — 当前状态
 
-## 低优先级
+**Lint**: ✅ 0 errors  
+**Tests**: ⚠️ 4/7 test suites fail (Jest v30 + @testing-library/react@16 compatibility)
 
-- [ ] CommentForm.tsx 头像 `alt=""` — 应改为用户名称
-- [ ] `validations.ts` 中 `createCategorySchema` / `createTagSchema` 未使用
-- [ ] Footer.tsx 空组件 — 移除或添加内容
-- [ ] Pagination、SearchForm、AdminLayoutClient 缺少 `aria-label`
+### 已修复
+
+- **@testing-library/react@16** → **v15.0.0** （Jest v30 兼容）
