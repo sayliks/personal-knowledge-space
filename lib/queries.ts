@@ -46,6 +46,35 @@ export async function getPublishedPosts(params: {
   return { posts, total, page, pageSize, totalPages: Math.ceil(total / pageSize) };
 }
 
+// A note counts as "tended" when it was revisited on a later day, not merely
+// polished right after publishing. publishedAt is frozen at first publish;
+// updatedAt bumps on every save, so a gap of a full day means the note was
+// genuinely come back to. (A 1-2h gap is just finishing the initial edit.)
+const TENDED_THRESHOLD_MS = 24 * 60 * 60 * 1000; // 1 day
+
+export async function getRecentlyTended(limit = 6) {
+  // Pull a bounded window of recently-saved published notes, then keep only
+  // the ones with a meaningful publish→edit gap. Derivation-only, no schema.
+  const candidates = await prisma.document.findMany({
+    where: {
+      type: "POST",
+      published: true,
+      publishedAt: { lte: new Date() },
+    },
+    include: DOCUMENT_INCLUDES,
+    orderBy: { updatedAt: "desc" },
+    take: limit * 4,
+  });
+
+  return candidates
+    .filter(
+      (p) =>
+        p.publishedAt != null &&
+        p.updatedAt.getTime() - p.publishedAt.getTime() > TENDED_THRESHOLD_MS
+    )
+    .slice(0, limit);
+}
+
 export async function getPostBySlug(slug: string) {
   return prisma.document.findUnique({
     where: { slug, type: "POST" },
@@ -152,5 +181,24 @@ export async function getPendingComments() {
     where: { approved: false },
     include: { document: { select: { id: true, title: true, slug: true } } },
     orderBy: { createdAt: "desc" },
+  });
+}
+
+export async function getStudioStats() {
+  const [postCount, categoryCount, tagCount, pendingComments] = await Promise.all([
+    prisma.document.count({ where: { type: "POST" } }),
+    prisma.document.count({ where: { type: "CATEGORY" } }),
+    prisma.tag.count(),
+    prisma.comment.count({ where: { approved: false } }),
+  ]);
+  return { postCount, categoryCount, tagCount, pendingComments };
+}
+
+export async function getRecentPosts(limit = 5) {
+  return prisma.document.findMany({
+    where: { type: "POST" },
+    orderBy: { updatedAt: "desc" },
+    take: limit,
+    select: { id: true, title: true, published: true, updatedAt: true },
   });
 }

@@ -1,7 +1,6 @@
-import { getPublishedPosts } from "@/lib/queries"
+import { getPublishedPosts, getAllCategories, getAllTags, getRecentlyTended } from "@/lib/queries"
 import { getTranslations } from "next-intl/server"
-import { PostCard } from "@/components/blog/PostCard"
-import { Pagination } from "@/components/blog/Pagination"
+import Link from "next/link"
 import type { Metadata } from "next"
 
 export const dynamic = "force-dynamic"
@@ -14,29 +13,173 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function HomePage({
-  searchParams,
-}: {
-  searchParams: Promise<{ page?: string }>
-}) {
-  const { page: pageParam } = await searchParams
-  const page = Math.max(1, Number(pageParam) || 1)
-  const t = await getTranslations("posts")
-  const { posts, totalPages } = await getPublishedPosts({ page })
+function noteDate(d: Date | null) {
+  if (!d) return "····"
+  return d
+    .toLocaleDateString("en-CA", { year: "numeric", month: "2-digit", day: "2-digit" })
+    .replace(/-/g, ".")
+}
+
+export default async function HomePage() {
+  const t = await getTranslations("home")
+
+  const [{ posts }, categories, tags, tended] = await Promise.all([
+    getPublishedPosts({ page: 1, pageSize: 14 }),
+    getAllCategories(),
+    getAllTags(),
+    getRecentlyTended(5),
+  ])
+
+  const sortedTags = [...tags]
+    .sort((a, b) => b._count.documents - a._count.documents)
+    .filter((tg) => tg._count.documents > 0)
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">{t("title")}</h1>
-      {posts.length === 0 ? (
-        <p className="text-muted-foreground">{t("noPosts")}</p>
-      ) : (
-        <div className="space-y-6">
-          {posts.map((post) => (
-            <PostCard key={post.id} post={post} />
-          ))}
-        </div>
+    <div className="mx-auto max-w-2xl px-5 sm:px-6">
+      {/* Intro — a few quiet lines, no hero */}
+      <section className="pt-14 pb-12 sm:pt-20">
+        <h1 className="text-base font-medium text-foreground">{t("heroName")}</h1>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground max-w-prose">
+          {t("heroIntro")}
+        </p>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground/70 max-w-prose">
+          <span className="text-muted-foreground/50">{t("currentlyLabel")}: </span>
+          {t("currentlyExploring")}
+        </p>
+      </section>
+
+      {/* Notes — dense, hanging-date list */}
+      <section className="border-t border-border/40 py-10">
+        <h2 className="mb-6 font-mono text-xs lowercase tracking-wide text-muted-foreground/50">
+          {t("notesLabel")}
+        </h2>
+
+        {posts.length === 0 ? (
+          <p className="text-sm italic text-muted-foreground/50">{t("noPostsYet")}</p>
+        ) : (
+          <ul>
+            {posts.map((post) => (
+              <li key={post.id} className="group">
+                <Link
+                  href={`/posts/${post.slug}`}
+                  className="flex gap-4 py-1.5 -mx-2 px-2 rounded hover:bg-muted/40 transition-colors"
+                >
+                  <time
+                    dateTime={post.publishedAt?.toISOString()}
+                    className="shrink-0 pt-0.5 font-mono text-xs tabular-nums text-muted-foreground/40"
+                  >
+                    {noteDate(post.publishedAt)}
+                  </time>
+                  <span className="flex-1 text-sm leading-snug text-foreground/85 group-hover:text-foreground decoration-border underline-offset-4 group-hover:underline">
+                    {post.title}
+                  </span>
+                  {post.category && (
+                    <span className="shrink-0 self-start pt-0.5 font-mono text-[11px] text-muted-foreground/35">
+                      {post.category.title}
+                    </span>
+                  )}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {posts.length > 0 && (
+          <Link
+            href="/posts"
+            className="mt-6 inline-block font-mono text-xs text-muted-foreground/50 hover:text-foreground transition-colors"
+          >
+            {t("allNotes")} →
+          </Link>
+        )}
+      </section>
+
+      {/* Tended — notes revisited after publishing, dated by last edit.
+          Renders only once the space has actually been tended over time. */}
+      {tended.length > 0 && (
+        <section className="border-t border-border/40 py-10">
+          <h2 className="mb-6 font-mono text-xs lowercase tracking-wide text-muted-foreground/50">
+            {t("tendedLabel")}
+          </h2>
+          <ul>
+            {tended.map((post) => (
+              <li key={post.id} className="group">
+                <Link
+                  href={`/posts/${post.slug}`}
+                  className="flex gap-4 py-1.5 -mx-2 px-2 rounded hover:bg-muted/40 transition-colors"
+                >
+                  <time
+                    dateTime={post.updatedAt.toISOString()}
+                    className="shrink-0 pt-0.5 font-mono text-xs tabular-nums text-muted-foreground/40"
+                  >
+                    {noteDate(post.updatedAt)}
+                  </time>
+                  <span className="flex-1 text-sm leading-snug text-foreground/85 group-hover:text-foreground decoration-border underline-offset-4 group-hover:underline">
+                    {post.title}
+                  </span>
+                  <span className="shrink-0 self-start pt-0.5 font-mono text-[11px] text-muted-foreground/35">
+                    {t("tendedMark")}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
       )}
-      <Pagination page={page} totalPages={totalPages} />
+
+      {/* Topics — categories as plain inline references */}
+      {categories.length > 0 && (
+        <section className="border-t border-border/40 py-10">
+          <h2 className="mb-6 font-mono text-xs lowercase tracking-wide text-muted-foreground/50">
+            {t("topicsLabel")}
+          </h2>
+          <ul className="space-y-1.5">
+            {categories.map((category) => (
+              <li key={category.id}>
+                <Link
+                  href={`/categories/${category.slug}`}
+                  className="group flex items-baseline gap-3 text-sm"
+                >
+                  <span className="text-foreground/80 group-hover:text-foreground decoration-border underline-offset-4 group-hover:underline">
+                    {category.title}
+                  </span>
+                  <span className="font-mono text-[11px] text-muted-foreground/35">
+                    {category._count.documents}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {/* Tags — wrapped index of threads */}
+      {sortedTags.length > 0 && (
+        <section className="border-t border-border/40 py-10">
+          <h2 className="mb-6 font-mono text-xs lowercase tracking-wide text-muted-foreground/50">
+            {t("threadsLabel")}
+          </h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2">
+            {sortedTags.map((tg) => (
+              <Link
+                key={tg.id}
+                href={`/tags/${tg.slug}`}
+                className="font-mono text-xs text-muted-foreground/55 hover:text-foreground transition-colors"
+              >
+                #{tg.name}
+                <span className="text-muted-foreground/25"> {tg._count.documents}</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Quiet meta line */}
+      <footer className="border-t border-border/40 py-10">
+        <p className="font-mono text-[11px] leading-relaxed text-muted-foreground/35">
+          {t("footerMeta")}
+        </p>
+      </footer>
     </div>
   )
 }

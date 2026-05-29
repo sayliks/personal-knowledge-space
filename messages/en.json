@@ -1,15 +1,15 @@
 {
   "common": {
-    "articles": "Articles",
+    "articles": "Writing",
     "about": "About",
-    "search": "Search",
+    "search": "Explore",
     "admin": "Admin",
     "signOut": "Sign Out",
     "backToHome": "Back to Home",
     "tryAgain": "Try Again",
     "loading": "Loading...",
     "toggleTheme": "Toggle theme",
-    "siteTitle": "sayliks's blog"
+    "siteTitle": "sayliks's garden"
   },
   "about": {
     "title": "About",
@@ -20,10 +20,10 @@
     }
   },
   "search": {
-    "title": "Search",
-    "placeholder": "Search articles...",
-    "noQuery": "Enter a keyword to search.",
-    "noResults": "No articles found.",
+    "title": "Explore",
+    "placeholder": "Search notes and ideas...",
+    "noQuery": "Enter a keyword to explore.",
+    "noResults": "No notes found.",
     "results": "Found {count} results for \"{query}\"",
     "loading": "Searching...",
     "hint": "Press Enter to open first result, Esc to close"
@@ -122,13 +122,61 @@
     "postCount": "{count} posts"
   },
   "posts": {
-    "title": "Posts",
-    "noPosts": "No posts yet"
+    "title": "Writing",
+    "noPosts": "No notes yet"
   },
   "home": {
     "siteTitle": "sayliks's blog",
     "tagline": "Recording thoughts, sharing knowledge",
-    "recentPosts": "Recent Posts"
+    "recentPosts": "Recent Posts",
+    "heroName": "Sayliks",
+    "heroIntro": "Developer and writer. I document technical explorations, thinking notes, and daily observations here.",
+    "currentlyLabel": "Currently",
+    "currentlyExploring": "Exploring the boundaries of large language models, thinking about the essence of knowledge management systems, and how to build better thinking tools.",
+    "navThinking": "Thinking",
+    "navAbout": "About",
+    "navExplore": "Explore",
+    "gardenPaths": "Garden Paths",
+    "recentThinking": "Recent Thinking",
+    "noPostsYet": "No content yet",
+    "exploreGarden": "Explore the garden",
+    "notesLabel": "notes",
+    "allNotes": "all notes",
+    "tendedLabel": "recently tended",
+    "tendedMark": "tended",
+    "topicsLabel": "topics",
+    "threadsLabel": "threads",
+    "categoryDescDefault": "Explore ideas and notes in this area",
+    "categoryDesc": {
+      "分享": "Technical sharing, tool recommendations, and practical experience",
+      "随笔": "Daily thoughts, observations, and reflections",
+      "说说": "Short thoughts and fragmented thinking"
+    },
+    "footerNote": "This is my digital garden — a space for thinking, learning, and creating. Ideas grow, connect, and evolve here.",
+    "footerMeta": "Continuously updated · Forever unfinished"
+  },
+  "studio": {
+    "studioName": "Studio",
+    "studio": "Studio",
+    "writing": "Writing",
+    "paths": "Paths",
+    "connections": "Connections",
+    "responses": "Responses",
+    "backToGarden": "Back to garden",
+    "welcome": "Welcome back",
+    "welcomeMessage": "This is your creative space — where ideas grow, connections form, and thoughts take shape.",
+    "currentlyLabel": "Currently",
+    "currentlyMessage": "Organizing notes on knowledge management and thinking tools.",
+    "gardenOverview": "Garden Overview",
+    "writings": "writings",
+    "knowledgePaths": "paths",
+    "pendingResponses": "pending",
+    "recentActivity": "Recent Activity",
+    "published": "published",
+    "draft": "draft",
+    "noRecentActivity": "No recent activity",
+    "newWriting": "New writing",
+    "viewGarden": "View garden"
   },
   "graph": {
     "backlinks": "Backlinks",

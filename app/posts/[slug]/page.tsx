@@ -1,12 +1,12 @@
 import { Suspense } from "react"
+import Link from "next/link"
 import { getPostBySlug } from "@/lib/queries"
 import { notFound } from "next/navigation"
 import { getTranslations } from "next-intl/server"
 import { MarkdownRenderer } from "@/components/blog/MarkdownRenderer"
-import { CategoryBadge } from "@/components/blog/CategoryBadge"
-import { TagList } from "@/components/blog/TagBadge"
 import { CommentSection } from "@/components/blog/CommentSection"
 import { Backlinks } from "@/components/blog/Backlinks"
+import { RelatedNotes } from "@/components/blog/RelatedNotes"
 import { formatDateLong } from "@/lib/utils"
 import type { Metadata } from "next"
 
@@ -55,35 +55,78 @@ export default async function PostPage({
   const tags = post.tags.map((pt) => pt.tag)
 
   return (
-    <article className="max-w-2xl mx-auto px-4 py-8">
-      <header className="mb-8 space-y-4">
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+    <article>
+      {/* Article header — restrained, part of the system */}
+      <header className="mx-auto max-w-2xl px-5 sm:px-6 pt-14 sm:pt-16 pb-8">
+        <div className="mb-5 flex flex-wrap items-center gap-2 font-mono text-xs text-muted-foreground/45">
           <time dateTime={post.publishedAt?.toISOString()}>
             {post.publishedAt ? formatDateLong(post.publishedAt) : t("draft")}
           </time>
           {post.category && (
-            <CategoryBadge name={post.category.title} slug={post.category.slug} />
+            <>
+              <span className="text-border/60">·</span>
+              <Link
+                href={`/categories/${post.category.slug}`}
+                className="hover:text-foreground transition-colors"
+              >
+                {post.category.title}
+              </Link>
+            </>
           )}
+          <span className="text-border/60">·</span>
+          <span>{post.author.name}</span>
         </div>
-        <h1 className="text-3xl font-bold">{post.title}</h1>
+
+        <h1 className="font-serif text-2xl sm:text-3xl font-medium leading-snug tracking-tight text-balance">
+          {post.title}
+        </h1>
+
         {post.summary && (
-          <p className="text-lg text-muted-foreground">{post.summary}</p>
+          <p className="mt-4 text-base leading-relaxed text-muted-foreground/80">
+            {post.summary}
+          </p>
         )}
-        {tags.length > 0 && <TagList tags={tags} />}
-        <div className="text-sm text-muted-foreground">
-          {t("by")} {post.author.name}
-        </div>
+
+        {tags.length > 0 && (
+          <div className="mt-5 flex flex-wrap gap-x-3 gap-y-1.5">
+            {tags.map((tag) => (
+              <Link
+                key={tag.id}
+                href={`/tags/${tag.slug}`}
+                className="font-mono text-xs text-muted-foreground/45 hover:text-foreground transition-colors"
+              >
+                #{tag.name}
+              </Link>
+            ))}
+          </div>
+        )}
       </header>
 
-      {post.content && <MarkdownRenderer content={post.content} />}
+      {/* Article content — optimal reading experience */}
+      <div className="mx-auto max-w-2xl px-5 sm:px-6 pt-4 pb-16 border-t border-border/40">
+        {post.content && <MarkdownRenderer content={post.content} />}
+      </div>
 
-      <Suspense>
-        <Backlinks postId={post.id} />
-      </Suspense>
+      {/* Backlinks - knowledge connections */}
+      <div className="mx-auto max-w-2xl px-5 sm:px-6 pb-10">
+        <Suspense>
+          <Backlinks postId={post.id} />
+        </Suspense>
+      </div>
 
-      <Suspense>
-        <CommentSection postId={post.id} />
-      </Suspense>
+      {/* Related Notes - shared topics */}
+      <div className="mx-auto max-w-2xl px-5 sm:px-6 pb-10">
+        <Suspense>
+          <RelatedNotes postId={post.id} tags={tags} categoryId={post.categoryId} />
+        </Suspense>
+      </div>
+
+      {/* Comments - separated section */}
+      <div className="mx-auto max-w-2xl px-5 sm:px-6 pb-16 sm:pb-20">
+        <Suspense>
+          <CommentSection postId={post.id} />
+        </Suspense>
+      </div>
     </article>
   )
 }

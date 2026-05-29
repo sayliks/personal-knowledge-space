@@ -3,7 +3,7 @@ export const dynamic = "force-dynamic"
 
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
-import { AdminLayoutClient } from "@/components/admin/AdminLayoutClient"
+import { StudioLayout } from "@/components/admin/StudioLayout"
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const session = await auth()
@@ -11,8 +11,8 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   if (session.user.role !== "admin") redirect("/")
 
   return (
-    <AdminLayoutClient email={session.user.email ?? ""}>
+    <StudioLayout email={session.user.email ?? ""}>
       {children}
-    </AdminLayoutClient>
+    </StudioLayout>
   )
 }

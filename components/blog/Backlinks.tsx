@@ -44,23 +44,34 @@ export async function Backlinks({ postId }: BacklinksProps) {
   if (!t) return null
 
   return (
-    <section className="border-t pt-8 mt-8">
-      <h2 className="text-lg font-semibold mb-4">{t("backlinks")}</h2>
-      <ul className="space-y-3">
+    <section className="border-t border-border/20 pt-12 mt-16">
+      <h2 className="text-xs uppercase tracking-widest text-muted-foreground/40 mb-8 font-mono">
+        Connected Notes
+      </h2>
+      <div className="space-y-6">
         {backlinks.map((bl) => (
-          <li key={bl.id}>
-            <Link
-              href={`/posts/${bl.slug}`}
-              className="group block p-3 rounded-lg border hover:bg-accent transition-colors"
-            >
-              <span className="font-medium group-hover:underline">{bl.title}</span>
+          <Link
+            key={bl.id}
+            href={`/posts/${bl.slug}`}
+            className="group block"
+          >
+            <article className="space-y-2">
+              <h3 className="text-lg font-serif group-hover:text-muted-foreground/80 transition-colors duration-200">
+                {bl.title}
+              </h3>
               {bl.summary && (
-                <p className="text-sm text-muted-foreground mt-1">{bl.summary}</p>
+                <p className="text-sm text-muted-foreground/70 leading-relaxed">
+                  {bl.summary}
+                </p>
               )}
-            </Link>
-          </li>
+              <div className="flex items-center gap-2 text-xs text-muted-foreground/50 font-mono">
+                <span>→</span>
+                <span>References this note</span>
+              </div>
+            </article>
+          </Link>
         ))}
-      </ul>
+      </div>
     </section>
   )
 }

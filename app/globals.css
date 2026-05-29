@@ -130,16 +130,217 @@
   }
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
+  }
+
+  /* Smooth scrolling with offset for fixed headers */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* Respect user preferences */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-/* Article prose: serif body, sans-serif headings */
+/* Article prose: refined reading experience */
 .prose {
   font-family: var(--font-serif);
+  font-size: 1.0625rem; /* 17px - optimal reading size */
+  line-height: 1.75;
+  color: oklch(0.25 0 0);
 }
+
+.dark .prose {
+  color: oklch(0.92 0 0);
+}
+
+/* Headings - functional hierarchy, softer emphasis */
 .prose :where(h1, h2, h3, h4, h5, h6):not(pre *) {
   font-family: var(--font-heading);
-  font-weight: 700;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  scroll-margin-top: 5rem;
+}
+
+.prose h1 {
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+}
+
+.prose h2 {
+  font-size: 1.25rem;
+  margin-top: 2.25rem;
+  margin-bottom: 0.875rem;
+}
+
+.prose h3 {
+  font-size: 1.0625rem;
+  margin-top: 1.75rem;
+  margin-bottom: 0.625rem;
+}
+
+.prose h4 {
+  font-size: 1rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Paragraphs - comfortable rhythm */
+.prose p {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.prose p:last-child {
+  margin-bottom: 0;
+}
+
+/* Links - subtle and refined */
+.prose a {
+  color: oklch(0.35 0 0);
+  text-decoration: none;
+  border-bottom: 1px solid oklch(0.35 0 0 / 30%);
+  transition: all 0.2s ease;
+}
+
+.prose a:hover {
+  color: oklch(0.25 0 0);
+  border-bottom-color: oklch(0.25 0 0);
+}
+
+.dark .prose a {
+  color: oklch(0.85 0 0);
+  border-bottom-color: oklch(0.85 0 0 / 30%);
+}
+
+.dark .prose a:hover {
+  color: oklch(0.95 0 0);
+  border-bottom-color: oklch(0.95 0 0);
+}
+
+/* Code blocks - calm and readable */
+.prose pre {
+  background: oklch(0.98 0 0);
+  border: 1px solid oklch(0.922 0 0 / 60%);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.dark .prose pre {
+  background: oklch(0.18 0 0);
+  border-color: oklch(1 0 0 / 8%);
+}
+
+/* Inline code - subtle emphasis */
+.prose :not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: oklch(0.97 0 0);
+  border: 1px solid oklch(0.922 0 0 / 50%);
+  padding: 0.15em 0.4em;
+  border-radius: 0.25rem;
+  font-weight: 500;
+}
+
+.dark .prose :not(pre) > code {
+  background: oklch(0.22 0 0);
+  border-color: oklch(1 0 0 / 10%);
+}
+
+/* Blockquotes - editorial style */
+.prose blockquote {
+  border-left: 3px solid oklch(0.85 0 0);
+  padding-left: 1.5rem;
+  margin: 2rem 0;
+  font-style: italic;
+  color: oklch(0.45 0 0);
+}
+
+.dark .prose blockquote {
+  border-left-color: oklch(0.35 0 0);
+  color: oklch(0.75 0 0);
+}
+
+/* Lists - proper spacing */
+.prose ul,
+.prose ol {
+  margin: 1.5rem 0;
+  padding-left: 1.75rem;
+}
+
+.prose li {
+  margin: 0.5rem 0;
+}
+
+.prose li > p {
+  margin: 0.5rem 0;
+}
+
+/* Images - breathing room */
+.prose img {
+  margin: 2.5rem 0;
+  border-radius: 0.5rem;
+  border: 1px solid oklch(0.922 0 0 / 40%);
+}
+
+.dark .prose img {
+  border-color: oklch(1 0 0 / 8%);
+}
+
+/* Horizontal rules - subtle dividers */
+.prose hr {
+  border: none;
+  border-top: 1px solid oklch(0.922 0 0 / 40%);
+  margin: 3rem 0;
+}
+
+.dark .prose hr {
+  border-top-color: oklch(1 0 0 / 8%);
+}
+
+/* Tables - clean and readable */
+.prose table {
+  width: 100%;
+  margin: 2rem 0;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.prose th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 2px solid oklch(0.85 0 0);
+  font-weight: 600;
+}
+
+.prose td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid oklch(0.922 0 0 / 40%);
+}
+
+.dark .prose th {
+  border-bottom-color: oklch(0.35 0 0);
+}
+
+.dark .prose td {
+  border-bottom-color: oklch(1 0 0 / 8%);
 }
 
 /* Wiki-link style */

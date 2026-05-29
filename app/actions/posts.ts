@@ -92,16 +92,30 @@ export async function updatePost(formData: FormData): Promise<ActionResult> {
       summary: formData.get("summary") || undefined,
       coverImage: formData.get("coverImage") || undefined,
       categoryId: formData.get("categoryId") || undefined,
-      tags: formData.getAll("tags"),
       published: formData.get("published") ? formData.get("published") === "true" : undefined,
     }
 
-    const result = createPostSchema.partial().safeParse(raw)
+    const result = createPostSchema.omit({ tags: true }).partial().safeParse(raw)
     if (!result.success) {
       return { success: false, error: result.error.issues[0].message }
     }
 
-    const { title, content, summary, coverImage, published, categoryId, tags } = result.data
+    const { title, content, summary, coverImage, published, categoryId } = result.data
+
+    // Three-case tag contract. FormData can't encode "field absent" for a
+    // multi-value key (getAll always yields an array), so the client sends an
+    // explicit `tagsProvided` marker when it is managing tags:
+    //   marker absent      -> preserve existing tags (skip the relation write)
+    //   marker present, [] -> clear all tags
+    //   marker present,[..] -> replace with the given set
+    const tagsProvided = formData.has("tagsProvided")
+    const newTagIds = formData.getAll("tags").map(String)
+    if (tagsProvided) {
+      const tagsResult = z.array(z.string()).safeParse(newTagIds)
+      if (!tagsResult.success) {
+        return { success: false, error: tagsResult.error.issues[0].message }
+      }
+    }
 
     const existing = await prisma.document.findFirst({ where: { id: postId, type: "POST" } })
     if (!existing) {
@@ -120,7 +134,9 @@ export async function updatePost(formData: FormData): Promise<ActionResult> {
     const publishedAt = published && !existing.publishedAt ? new Date() : existing.publishedAt
 
     await prisma.$transaction(async (tx) => {
-      await tx.documentTag.deleteMany({ where: { documentId: postId } })
+      if (tagsProvided) {
+        await tx.documentTag.deleteMany({ where: { documentId: postId } })
+      }
 
       await tx.document.update({
         where: { id: postId },
@@ -133,8 +149,8 @@ export async function updatePost(formData: FormData): Promise<ActionResult> {
           published: published ?? existing.published,
           publishedAt,
           categoryId: categoryId !== undefined ? categoryId : existing.categoryId,
-          tags: tags?.length
-            ? { create: tags.map((tagId) => ({ tagId })) }
+          tags: tagsProvided && newTagIds.length
+            ? { create: newTagIds.map((tagId) => ({ tagId })) }
             : undefined,
         },
       })
