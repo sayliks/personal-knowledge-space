@@ -69,6 +69,9 @@ export function PostForm({ post, categories, tags }: PostFormProps) {
     if (coverImage) formData.set("coverImage", coverImage)
     formData.set("published", String(published))
     if (categoryId) formData.set("categoryId", categoryId)
+    // PostForm always manages the complete tag set, so signal an explicit
+    // replace (tagsProvided + the selected ids; empty selection clears).
+    formData.set("tagsProvided", "1")
     for (const tagId of selectedTags) {
       formData.append("tags", tagId)
     }

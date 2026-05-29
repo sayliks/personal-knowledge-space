@@ -1,30 +1,12 @@
 import { getTranslations } from "next-intl/server"
-import { prisma } from "@/lib/prisma"
+import { getStudioStats, getRecentPosts } from "@/lib/queries"
 import Link from "next/link"
 
 export default async function StudioDashboard() {
   const t = await getTranslations("studio")
 
-  // Get counts
-  const [postCount, categoryCount, tagCount, pendingComments] = await Promise.all([
-    prisma.document.count({ where: { type: "POST" } }),
-    prisma.document.count({ where: { type: "CATEGORY" } }),
-    prisma.tag.count(),
-    prisma.comment.count({ where: { approved: false } }),
-  ])
-
-  // Get recent activity
-  const recentPosts = await prisma.document.findMany({
-    where: { type: "POST" },
-    orderBy: { updatedAt: "desc" },
-    take: 5,
-    select: {
-      id: true,
-      title: true,
-      published: true,
-      updatedAt: true,
-    },
-  })
+  const [{ postCount, categoryCount, tagCount, pendingComments }, recentPosts] =
+    await Promise.all([getStudioStats(), getRecentPosts(5)])
 
   return (
     <div className="space-y-16">
