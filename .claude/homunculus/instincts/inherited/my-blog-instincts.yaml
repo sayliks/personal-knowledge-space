@@ -1,0 +1,476 @@
+# Instincts generated from https://github.com/sayliks/my-blog
+# Generated: 2026-05-29T10:50:11.265Z
+# Version: 2.0
+# NOTE: This file supplements (does not replace) any existing curated instincts.
+# High-confidence manually curated instincts should be preserved alongside these.
+
+---
+id: my-blog-commit-conventional
+trigger: "when writing a commit message"
+confidence: 0.85
+domain: git
+source: repo-analysis
+source_repo: https://github.com/sayliks/my-blog
+---
+
+# My Blog Commit Conventional
+
+## Action
+
+Use conventional commit format with prefixes: feat, refactor, fix, docs
+
+## Evidence
+
+- 10 commits analyzed
+- Detected conventional commit pattern
+- Examples: feat(schema): replace Post/Category with unified Document model, refactor(queries): migrate to Document model with backward compatibility
+
+---
+id: my-blog-commit-length
+trigger: "when writing a commit message"
+confidence: 0.6
+domain: git
+source: repo-analysis
+source_repo: https://github.com/sayliks/my-blog
+---
+
+# My Blog Commit Length
+
+## Action
+
+Write moderate-length commit messages (~57 characters)
+
+## Evidence
+
+- Average commit message length: 57 chars
+- Based on 10 commits
+
+---
+id: my-blog-naming-files
+trigger: "when creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/sayliks/my-blog
+---
+
+# My Blog Naming Files
+
+## Action
+
+Use camelCase naming convention
+
+## Evidence
+
+- Analyzed file naming patterns in repository
+- Dominant pattern: camelCase
+
+---
+id: my-blog-import-alias
+trigger: "when importing modules"
+confidence: 0.85
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/sayliks/my-blog
+---
+
+# My Blog Import Alias
+
+## Action
+
+Use path aliases (@/, ~/) instead of relative imports
+
+## Evidence
+
+- Import analysis shows alias pattern
+- Example: import { x } from '@/lib/x'
+
+---
+id: my-blog-export-style
+trigger: "when exporting from a module"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/sayliks/my-blog
+---
+
+# My Blog Export Style
+
+## Action
+
+Prefer mixed exports
+
+## Evidence
+
+- Export pattern analysis
+- Dominant style: mixed
+
+---
+id: my-blog-test-separate
+trigger: "when writing tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/sayliks/my-blog
+---
+
+# My Blog Test Separate
+
+## Action
+
+Place tests in the tests/ or __tests__/ directory, mirroring src structure
+
+## Evidence
+
+- Separate test directory pattern detected
+- Tests live in dedicated test folders
+
+---
+id: my-blog-workflow-feature-development
+trigger: "when implementing a new feature"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/sayliks/my-blog
+---
+
+# My Blog Workflow Feature Development
+
+## Action
+
+Follow the feature-development workflow:
+1. Add feature implementation
+2. Add tests for feature
+3. Update documentation
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~21x per month
+- Files: prisma/*, lib/*, app/actions/*
+
+---
+id: my-blog-workflow-data-model-migration-workflow
+trigger: "when doing data model migration workflow"
+confidence: 0.55
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/sayliks/my-blog
+---
+
+# My Blog Workflow Data Model Migration Workflow
+
+## Action
+
+Follow the data-model-migration-workflow workflow:
+1. Update the Prisma schema to define new/updated models and relationships.
+2. Write migration scripts to transform existing data to the new model structure.
+3. Refactor backend query logic to use the new models.
+4. Update server actions to use the new models and fields.
+5. Update API routes to reflect the new data model.
+6. Update admin UI pages to use new field names and relationships.
+7. Update user-facing pages/components to use new model references.
+8. Add or update documentation/runbooks for the migration process.
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~1x per month
+- Files: prisma/schema.prisma, prisma/migrate-to-*.ts, prisma/drop-old-tables.ts
+
+---
+id: my-blog-workflow-database-migration-script-workflow
+trigger: "when doing database migration script workflow"
+confidence: 0.55
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/sayliks/my-blog
+---
+
+# My Blog Workflow Database Migration Script Workflow
+
+## Action
+
+Follow the database-migration-script-workflow workflow:
+1. Create or update migration scripts to transform or clean up data.
+2. Add scripts to check database tables and row counts for verification.
+3. Add scripts to drop or clean up old tables post-migration.
+4. Document migration steps and safety checks.
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~1x per month
+- Files: prisma/migrate-to-*.ts, prisma/drop-old-tables.ts, prisma/migrate-complete.ts
+
+---
+id: my-blog-instinct-file-naming-camelCase
+trigger: "When creating a new file in the codebase"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: sayliks/my-blog
+---
+
+# My Blog Instinct File Naming CamelCase
+
+## Action
+
+Name the file using camelCase convention
+
+## Evidence
+
+- Pattern in namingConventions.files: camelCase
+
+---
+id: my-blog-instinct-function-naming-camelCase
+trigger: "When defining a new function"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: sayliks/my-blog
+---
+
+# My Blog Instinct Function Naming CamelCase
+
+## Action
+
+Name the function using camelCase convention
+
+## Evidence
+
+- Pattern in namingConventions.functions: camelCase
+
+---
+id: my-blog-instinct-class-naming-PascalCase
+trigger: "When defining a new class"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: sayliks/my-blog
+---
+
+# My Blog Instinct Class Naming PascalCase
+
+## Action
+
+Name the class using PascalCase convention
+
+## Evidence
+
+- Pattern in namingConventions.classes: PascalCase
+
+---
+id: my-blog-instinct-constant-naming-SCREAMING_SNAKE_CASE
+trigger: "When defining a constant value"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: sayliks/my-blog
+---
+
+# My Blog Instinct Constant Naming SCREAMING_SNAKE_CASE
+
+## Action
+
+Name the constant using SCREAMING_SNAKE_CASE convention
+
+## Evidence
+
+- Pattern in namingConventions.constants: SCREAMING_SNAKE_CASE
+
+---
+id: my-blog-instinct-import-alias-style
+trigger: "When importing modules"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: sayliks/my-blog
+---
+
+# My Blog Instinct Import Alias Style
+
+## Action
+
+Use import aliases as per project conventions
+
+## Evidence
+
+- Pattern in importStyle: alias
+
+---
+id: my-blog-instinct-export-mixed-style
+trigger: "When exporting modules or members"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: sayliks/my-blog
+---
+
+# My Blog Instinct Export Mixed Style
+
+## Action
+
+Use both named and default exports as appropriate
+
+## Evidence
+
+- Pattern in exportStyle: mixed
+
+---
+id: my-blog-instinct-try-catch-error-handling
+trigger: "When handling errors in code"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: sayliks/my-blog
+---
+
+# My Blog Instinct Try Catch Error Handling
+
+## Action
+
+Use try-catch blocks for error handling
+
+## Evidence
+
+- Pattern in errorHandling.style: try-catch
+
+---
+id: my-blog-instinct-git-conventional-commits
+trigger: "When writing a commit message"
+confidence: 0.9
+domain: git
+source: repo-analysis
+source_repo: sayliks/my-blog
+---
+
+# My Blog Instinct Git Conventional Commits
+
+## Action
+
+Format the commit message using the Conventional Commits specification (e.g., feat(scope): message)
+
+## Evidence
+
+- Pattern in commits.type: conventional
+- Seen in commit: feat(schema): replace Post/Category with unified Document model
+
+---
+id: my-blog-instinct-git-commit-prefixes
+trigger: "When starting a commit message"
+confidence: 0.85
+domain: git
+source: repo-analysis
+source_repo: sayliks/my-blog
+---
+
+# My Blog Instinct Git Commit Prefixes
+
+## Action
+
+Use one of the prefixes: feat, refactor, fix, docs
+
+## Evidence
+
+- Pattern in commits.prefixes: [feat, refactor, fix, docs]
+- Seen in commit: fix(admin): update admin pages for Document model field names
+
+---
+id: my-blog-instinct-git-commit-length
+trigger: "When writing a commit message"
+confidence: 0.7
+domain: git
+source: repo-analysis
+source_repo: sayliks/my-blog
+---
+
+# My Blog Instinct Git Commit Length
+
+## Action
+
+Keep the commit message concise, around 57 characters on average
+
+## Evidence
+
+- Pattern in commits.averageLength: 57
+
+---
+id: my-blog-instinct-data-model-migration-workflow
+trigger: "When someone wants to replace or significantly refactor a core data model in the application"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: sayliks/my-blog
+---
+
+# My Blog Instinct Data Model Migration Workflow
+
+## Action
+
+Follow the data-model-migration-workflow steps: update Prisma schema, write migration scripts, refactor queries, update server actions, update API routes, update admin UI, update user-facing pages/components, update documentation
+
+## Evidence
+
+- Workflow: data-model-migration-workflow
+- Pattern in filesInvolved: prisma/schema.prisma, prisma/migrate-to-*.ts, etc.
+
+---
+id: my-blog-instinct-database-migration-script-workflow
+trigger: "When someone needs to migrate data or verify database integrity after schema changes"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: sayliks/my-blog
+---
+
+# My Blog Instinct Database Migration Script Workflow
+
+## Action
+
+Follow the database-migration-script-workflow steps: create/update migration scripts, add verification scripts, add cleanup scripts, document migration steps
+
+## Evidence
+
+- Workflow: database-migration-script-workflow
+- Pattern in filesInvolved: prisma/migrate-to-*.ts, prisma/drop-old-tables.ts, etc.
+
+---
+id: my-blog-instinct-feature-development-workflow
+trigger: "When implementing a new feature"
+confidence: 0.8
+domain: workflow
+source: repo-analysis
+source_repo: sayliks/my-blog
+---
+
+# My Blog Instinct Feature Development Workflow
+
+## Action
+
+Follow the feature-development workflow: implement feature, add tests, update documentation
+
+## Evidence
+
+- Workflow: feature-development
+- Commit sequence: Add feature implementation, Add tests for feature, Update documentation
+
+---
+id: my-blog-instinct-test-location-separate
+trigger: "When adding new tests"
+confidence: 0.7
+domain: testing
+source: repo-analysis
+source_repo: sayliks/my-blog
+---
+
+# My Blog Instinct Test Location Separate
+
+## Action
+
+Place test files in a separate location from source files
+
+## Evidence
+
+- Pattern in architecture.folderStructure.testLocation: separate
+
