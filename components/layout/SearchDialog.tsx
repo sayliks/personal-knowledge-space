@@ -91,7 +91,7 @@ export function SearchDialog() {
         className="text-muted-foreground hover:text-foreground"
       >
         <Search className="size-4" />
-        <span className="ml-1.5">{t("title")}</span>
+        <span className="ml-1.5 sr-only sm:not-sr-only">{t("title")}</span>
       </Button>
 
       <DialogContent className="sm:max-w-lg bg-popover/80 backdrop-blur-xl">

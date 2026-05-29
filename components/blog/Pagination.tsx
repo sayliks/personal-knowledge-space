@@ -15,7 +15,7 @@ export function Pagination({ page, totalPages, baseUrl = "" }: PaginationProps) 
   if (totalPages <= 1) return null
 
   return (
-    <nav className="flex items-center justify-center gap-2 pt-8">
+    <nav className="flex flex-wrap items-center justify-center gap-2 pt-8 text-center">
       {page > 1 && (
         <Link
           href={`${baseUrl}?page=${page - 1}`}

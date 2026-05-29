@@ -8,15 +8,19 @@ export async function Header() {
 
   return (
     <header className="border-b sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50">
-      <div className="max-w-4xl mx-auto flex items-center justify-between h-14 px-4">
-        <Link href="/" className="text-2xl font-bold tracking-tight" style={{ fontFamily: "var(--font-brand)" }}>
+      <div className="max-w-4xl mx-auto flex flex-col gap-2 px-4 py-3 sm:h-14 sm:flex-row sm:items-center sm:justify-between">
+        <Link
+          href="/"
+          className="text-xl font-bold tracking-tight sm:text-2xl"
+          style={{ fontFamily: "var(--font-brand)" }}
+        >
           {t("siteTitle")}
         </Link>
-        <nav className="flex items-center gap-1 text-sm text-muted-foreground">
-          <Link href="/posts" className="hover:text-foreground transition-colors px-2">
+        <nav className="flex w-full flex-wrap items-center gap-1 text-xs text-muted-foreground sm:w-auto sm:flex-nowrap sm:text-sm">
+          <Link href="/posts" className="hover:text-foreground transition-colors px-2 py-1">
             {t("articles")}
           </Link>
-          <Link href="/about" className="hover:text-foreground transition-colors px-2">
+          <Link href="/about" className="hover:text-foreground transition-colors px-2 py-1">
             {t("about")}
           </Link>
           <SearchDialog />
