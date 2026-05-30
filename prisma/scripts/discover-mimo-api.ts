@@ -46,15 +46,16 @@ async function testEndpoint(baseURL: string, model: string) {
     console.log(`   Dimensions: ${response.data[0].embedding.length}`);
     console.log(`   Usage: ${JSON.stringify(response.usage)}`);
     return true;
-  } catch (error: any) {
-    if (error.status === 401) {
+  } catch (error: unknown) {
+    const e = error as { status?: number; code?: string; message?: string };
+    if (e.status === 401) {
       console.log(`   ❌ 401 Unauthorized - API key may be invalid`);
-    } else if (error.status === 404) {
+    } else if (e.status === 404) {
       console.log(`   ❌ 404 Not Found - Wrong endpoint or model`);
-    } else if (error.code === 'ENOTFOUND') {
+    } else if (e.code === "ENOTFOUND") {
       console.log(`   ❌ DNS Error - Endpoint doesn't exist`);
     } else {
-      console.log(`   ❌ Error: ${error.message}`);
+      console.log(`   ❌ Error: ${e.message ?? String(error)}`);
     }
     return false;
   }

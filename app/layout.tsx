@@ -45,20 +45,20 @@ const dancingScript = Dancing_Script({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.AUTH_URL ?? "http://localhost:3000"),
   title: {
-    default: "sayliks's blog",
-    template: "%s | sayliks's blog",
+    default: "sayliks's Corner",
+    template: "%s | sayliks's Corner",
   },
-  description: "A personal blog built with Next.js",
+  description: "A personal site built with Next.js",
   openGraph: {
     type: "website",
-    siteName: "sayliks's blog",
-    title: "sayliks's blog",
-    description: "A personal blog built with Next.js",
+    siteName: "sayliks's Corner",
+    title: "sayliks's Corner",
+    description: "A personal site built with Next.js",
   },
   twitter: {
     card: "summary",
-    title: "sayliks's blog",
-    description: "A personal blog built with Next.js",
+    title: "sayliks's Corner",
+    description: "A personal site built with Next.js",
   },
   robots: {
     index: true,

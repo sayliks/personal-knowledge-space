@@ -164,8 +164,9 @@ async function main() {
             console.log(`   ❌ Not very relevant (distance > 0.5)`);
           }
         }
-      } catch (error: any) {
-        console.log(`   ❌ Query failed: ${error.message}`);
+      } catch (error: unknown) {
+        const qe = error as { message?: string };
+        console.log(`   ❌ Query failed: ${qe.message ?? String(error)}`);
       }
     }
 
@@ -194,16 +195,17 @@ async function main() {
     console.log("✅ Vector storage and search functional");
     console.log("✅ Ready for Phase 2 implementation");
 
-  } catch (error: any) {
-    console.error("\n❌ POC failed:", error.message);
+  } catch (error: unknown) {
+    const e = error as { message?: string; code?: string };
+    console.error("\n❌ POC failed:", e.message ?? String(error));
 
-    if (error.message.includes("API key")) {
+    if (e.message?.includes("API key")) {
       console.log("\nCheck your API key configuration in .env");
-    } else if (error.message.includes("quota") || error.message.includes("rate limit")) {
+    } else if (e.message?.includes("quota") || e.message?.includes("rate limit")) {
       console.log("\nYou may have exceeded your API quota or rate limit");
-    } else if (error.message.includes("model")) {
+    } else if (e.message?.includes("model")) {
       console.log("\nThe model name may be incorrect. Check your provider's documentation.");
-    } else if (error.code === 'ENOTFOUND' || error.message.includes('fetch failed')) {
+    } else if (e.code === "ENOTFOUND" || e.message?.includes("fetch failed")) {
       console.log("\nCannot reach the API endpoint. Check:");
       console.log("1. EMBEDDING_BASE_URL is correct");
       console.log("2. You have internet connection");

@@ -9,7 +9,7 @@
     "tryAgain": "重试",
     "loading": "加载中...",
     "toggleTheme": "切换主题",
-    "siteTitle": "sayliks 的笔记",
+    "siteTitle": "sayliks's Corner",
     "tended": "已修订"
   },
 
@@ -130,11 +130,11 @@
     "noPosts": "还没有笔记"
   },
   "home": {
-    "siteTitle": "sayliks's blog",
+    "siteTitle": "sayliks's Corner",
     "tagline": "记录想法，分享知识",
     "recentPosts": "最新文章",
     "heroName": "Sayliks",
-    "heroIntro": "开发者，写作者。在这里记录技术探索、思考笔记和日常观察。",
+    "heroIntro": "偶尔正常的人类。在这里记录技术探索、思考笔记和日常观察。",
     "currentlyLabel": "当前",
     "currentlyExploring": "正在探索大语言模型的能力边界，思考知识管理系统的本质，以及如何构建更好的思考工具。",
     "navThinking": "思考",

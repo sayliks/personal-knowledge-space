@@ -1,6 +1,9 @@
 import { getTranslations } from "next-intl/server"
 import type { Metadata } from "next"
 import Image from "next/image"
+import { SiGithub, SiX } from "react-icons/si"
+import { FiMail } from "react-icons/fi"
+import { GiPenguin } from "react-icons/gi"
 
 export const dynamic = "force-static"
 
@@ -50,10 +53,10 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Tools — quiet inline index, no chips */}
+      {/* 工具 — 低调的内联索引，不用标签样式 */}
       <section className="border-t border-border/40 py-10">
         <h2 className="mb-5 font-mono text-xs lowercase tracking-wide text-muted-foreground/50">
-          tools
+          工具
         </h2>
         <p className="flex flex-wrap gap-x-3 gap-y-1.5 font-mono text-xs text-muted-foreground/55">
           {skills.map((s) => (
@@ -62,52 +65,65 @@ export default function AboutPage() {
         </p>
       </section>
 
-      {/* Links — quiet mono row */}
+      {/* 站外链接 — 低调的等宽排版 */}
       <section className="border-t border-border/40 py-10">
         <h2 className="mb-5 font-mono text-xs lowercase tracking-wide text-muted-foreground/50">
-          elsewhere
+          站外
         </h2>
         <div className="space-y-4 font-mono text-xs text-muted-foreground/65">
-          <div className="flex flex-wrap gap-x-5 gap-y-2">
+          <div className="flex flex-row items-center gap-4 flex-nowrap">
             <a
               href="https://github.com/sayliks"
               target="_blank"
               rel="noopener noreferrer"
               className="transition-colors hover:text-foreground"
+              aria-label="GitHub"
             >
-              GitHub: github.com/sayliks
+              <span className="inline-flex items-center gap-2">
+                <SiGithub className="h-4 w-4" />
+                <span className="sr-only">GitHub</span>
+              </span>
             </a>
             <a
               href="https://x.com/frsayliks"
               target="_blank"
               rel="noopener noreferrer"
               className="transition-colors hover:text-foreground"
+              aria-label="X"
             >
-              X: frsayliks
+              <span className="inline-flex items-center gap-2">
+                <SiX className="h-4 w-4" />
+                <span className="sr-only">X</span>
+              </span>
             </a>
             <a
               href="mailto:sayliks@outlook.com"
               className="transition-colors hover:text-foreground"
+              aria-label="Email"
             >
-              Email: sayliks@outlook.com
+              <span className="inline-flex items-center gap-2">
+                <FiMail className="h-4 w-4" />
+                <span className="sr-only">Email</span>
+              </span>
             </a>
-          </div>
+            <div className="relative inline-flex w-fit items-center gap-2 group">
+              <button className="transition-colors hover:text-foreground" aria-label="QQ">
+                <GiPenguin className="h-5 w-5 text-muted-foreground/60" aria-hidden />
+                <span className="sr-only">QQ 联系</span>
+              </button>
 
-          <div className="relative inline-flex w-fit group">
-            <span className="text-muted-foreground/50">QQ:</span>
-            <span className="ml-2 text-foreground">2338247697</span>
-
-            <div className="pointer-events-none absolute bottom-full left-0 z-10 mb-3 hidden w-56 rounded-2xl border border-border/60 bg-card/95 p-3 shadow-xl backdrop-blur-sm group-hover:block group-focus-within:block">
-              <Image
-                src="/images/contact/qq-qr-code.png"
-                alt="QQ 二维码"
-                width={768}
-                height={1365}
-                className="h-auto w-full rounded-lg"
-              />
-              <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground/60">
-                鼠标悬停在 QQ 号码上时显示。
-              </p>
+              {/* 隐藏可见的 QQ 号码，仅保留二维码悬停弹层供查看 */}
+              <div className="pointer-events-none absolute bottom-full left-0 z-10 mb-3 hidden w-56 rounded-2xl border border-border/60 bg-card/95 p-3 shadow-xl backdrop-blur-sm group-hover:block group-focus-within:block">
+                <Image
+                  src="/images/contact/qq-qr-code.png"
+                  alt="QQ 二维码"
+                  width={768}
+                  height={1365}
+                  className="h-auto w-full rounded-lg"
+                />
+                <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground/60">
+                </p>
+              </div>
             </div>
           </div>
         </div>

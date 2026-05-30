@@ -165,12 +165,13 @@ async function main() {
     console.log("✅ Costs are reasonable for your usage");
     console.log("✅ Ready to proceed with Phase 2 implementation");
 
-  } catch (error: any) {
-    console.error("\n❌ POC failed:", error.message);
+  } catch (error: unknown) {
+    const e = error as { message?: string };
+    console.error("\n❌ POC failed:", e.message ?? String(error));
 
-    if (error.message.includes("API key")) {
+    if (e.message?.includes("API key")) {
       console.log("\nCheck your OPENAI_API_KEY in .env");
-    } else if (error.message.includes("quota")) {
+    } else if (e.message?.includes("quota")) {
       console.log("\nYou may have exceeded your OpenAI API quota");
     }
 

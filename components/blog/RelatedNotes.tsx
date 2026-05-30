@@ -20,7 +20,7 @@ export async function RelatedNotes({ postId, tags, categoryId }: RelatedNotesPro
   return (
     <section className="border-t border-border/20 pt-12 mt-16">
       <h2 className="text-xs uppercase tracking-widest text-muted-foreground/40 mb-8 font-mono">
-        Related Explorations
+        相关探索
       </h2>
       <div className="space-y-6">
         {relatedPosts.map((post) => {
@@ -46,7 +46,7 @@ export async function RelatedNotes({ postId, tags, categoryId }: RelatedNotesPro
                 )}
                 {sharedTags.length > 0 && (
                   <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground/50 font-mono">
-                    <span>Shared:</span>
+                    <span>共同：</span>
                     {sharedTags.slice(0, 2).map((tag, i) => (
                       <span key={i}>#{tag}</span>
                     ))}

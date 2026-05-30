@@ -39,9 +39,10 @@ async function main() {
       try {
         await prisma.$executeRaw`CREATE EXTENSION IF NOT EXISTS vector`;
         console.log("✅ pgvector extension installed successfully!");
-      } catch (error: any) {
+      } catch (error: unknown) {
+        const e = error as { message?: string };
         console.log("❌ Failed to install pgvector:");
-        console.log(error.message);
+        console.log(e.message ?? String(error));
         console.log("\nYou may need superuser permissions or a Supabase Pro plan.");
         process.exit(1);
       }
@@ -90,18 +91,20 @@ async function main() {
       `;
       console.log("✅ 1536 dimensions supported (OpenAI text-embedding-3-small)");
       await prisma.$executeRaw`DROP TABLE _vector_limit_test`;
-    } catch (error: any) {
-      console.log("⚠️  1536 dimensions may not be supported");
-      console.log(error.message);
-    }
+      } catch (error: unknown) {
+        const e = error as { message?: string };
+        console.log("⚠️  1536 dimensions may not be supported");
+        console.log(e.message ?? String(error));
+      }
 
     console.log("\n=== Summary ===");
     console.log("✅ pgvector is fully functional on your Supabase instance");
     console.log("✅ Vector similarity search works correctly");
     console.log("✅ Ready for Phase 2 implementation");
 
-  } catch (error: any) {
-    console.error("\n❌ Test failed:", error.message);
+  } catch (error: unknown) {
+    const e = error as { message?: string };
+    console.error("\n❌ Test failed:", e.message ?? String(error));
     process.exit(1);
   }
 }
