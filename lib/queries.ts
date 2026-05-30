@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import type { Prisma } from "@/app/generated/prisma/client";
+import { isTended } from "./tended";
 
 const DOCUMENT_INCLUDES = {
   author: { select: { id: true, name: true } },
@@ -46,15 +47,9 @@ export async function getPublishedPosts(params: {
   return { posts, total, page, pageSize, totalPages: Math.ceil(total / pageSize) };
 }
 
-// A note counts as "tended" when it was revisited on a later day, not merely
-// polished right after publishing. publishedAt is frozen at first publish;
-// updatedAt bumps on every save, so a gap of a full day means the note was
-// genuinely come back to. (A 1-2h gap is just finishing the initial edit.)
-const TENDED_THRESHOLD_MS = 24 * 60 * 60 * 1000; // 1 day
-
 export async function getRecentlyTended(limit = 6) {
   // Pull a bounded window of recently-saved published notes, then keep only
-  // the ones with a meaningful publish→edit gap. Derivation-only, no schema.
+  // the ones the shared rule counts as genuinely tended. Derivation-only, no schema.
   const candidates = await prisma.document.findMany({
     where: {
       type: "POST",
@@ -66,13 +61,7 @@ export async function getRecentlyTended(limit = 6) {
     take: limit * 4,
   });
 
-  return candidates
-    .filter(
-      (p) =>
-        p.publishedAt != null &&
-        p.updatedAt.getTime() - p.publishedAt.getTime() > TENDED_THRESHOLD_MS
-    )
-    .slice(0, limit);
+  return candidates.filter(isTended).slice(0, limit);
 }
 
 export async function getPostBySlug(slug: string) {

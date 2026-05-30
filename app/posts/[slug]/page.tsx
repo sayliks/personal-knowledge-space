@@ -8,6 +8,7 @@ import { CommentSection } from "@/components/blog/CommentSection"
 import { Backlinks } from "@/components/blog/Backlinks"
 import { RelatedNotes } from "@/components/blog/RelatedNotes"
 import { formatDateLong } from "@/lib/utils"
+import { isTended } from "@/lib/tended"
 import type { Metadata } from "next"
 
 export const dynamic = "force-dynamic"
@@ -62,6 +63,14 @@ export default async function PostPage({
           <time dateTime={post.publishedAt?.toISOString()}>
             {post.publishedAt ? formatDateLong(post.publishedAt) : t("draft")}
           </time>
+          {isTended(post) && (
+            <>
+              <span className="text-border/60">·</span>
+              <time dateTime={post.updatedAt.toISOString()}>
+                {t("updated")} {formatDateLong(post.updatedAt)}
+              </time>
+            </>
+          )}
           {post.category && (
             <>
               <span className="text-border/60">·</span>
