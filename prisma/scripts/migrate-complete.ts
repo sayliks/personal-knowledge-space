@@ -12,10 +12,10 @@
  * - Posts keep their existing id, so Comment.postId values stay valid.
  * - Everything runs in a single transaction: it all succeeds or nothing changes.
  *
- * Usage: npx tsx prisma/migrate-complete.ts
+ * Usage: npx tsx prisma/scripts/migrate-complete.ts
  */
 
-import { PrismaClient } from "../app/generated/prisma/client";
+import { PrismaClient } from "../../app/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import "dotenv/config";
 
@@ -217,7 +217,7 @@ async function main() {
   console.log("1. Run: npx prisma generate");
   console.log("2. Restart dev server: npm run dev");
   console.log("3. Test the application thoroughly");
-  console.log("4. Once verified, run: npx tsx prisma/drop-old-tables.ts");
+  console.log("4. Once verified, run: npx tsx prisma/scripts/drop-old-tables.ts");
   console.log("\n⚠️  Old tables (Post, Category, PostTag) are still in the database as a safety backup.");
 }
 

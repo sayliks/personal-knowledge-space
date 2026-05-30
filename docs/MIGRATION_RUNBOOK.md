@@ -43,7 +43,7 @@ This runbook guides you through migrating your existing blog data from the Post/
 This script reads existing data from Post/Category/PostTag tables and writes to the new Document/DocumentTag tables. It uses raw SQL to read old tables, so it works even after schema changes.
 
 ```bash
-npx tsx prisma/migrate-to-documents.ts
+npx tsx prisma/scripts/migrate-to-documents.ts
 ```
 
 **Expected output:**
@@ -247,4 +247,4 @@ After successful migration:
 If you encounter issues not covered in this runbook:
 - Check the git commit history for context on each change
 - Review the Prisma schema in `prisma/schema.prisma`
-- Check the migration script in `prisma/migrate-to-documents.ts`
+- Check the migration script in `prisma/scripts/migrate-to-documents.ts`

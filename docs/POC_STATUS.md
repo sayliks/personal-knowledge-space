@@ -141,16 +141,16 @@ npm install @xenova/transformers
 ## 📝 Files Created
 
 ### Phase 1
-- ✅ `prisma/migrate-complete.ts` - Data migration script
-- ✅ `prisma/drop-old-tables.ts` - Cleanup script
-- ✅ `prisma/verify-migration.ts` - Integrity checker
+- ✅ `prisma/scripts/migrate-complete.ts` - Data migration script
+- ✅ `prisma/scripts/drop-old-tables.ts` - Cleanup script
+- ✅ `prisma/scripts/verify-migration.ts` - Integrity checker
 - ✅ `docs/MIGRATION_RUNBOOK.md` - Migration guide
 - ✅ `docs/PHASE1_TEST_REPORT.md` - Test results
 
 ### Phase 2 POC
-- ✅ `prisma/test-pgvector.ts` - pgvector testing (passed)
-- ✅ `prisma/poc-embeddings-flexible.ts` - Embedding POC (ready to run)
-- ✅ `prisma/discover-mimo-api.ts` - API discovery (ran, no match)
+- ✅ `prisma/scripts/test-pgvector.ts` - pgvector testing (passed)
+- ✅ `prisma/scripts/poc-embeddings-flexible.ts` - Embedding POC (ready to run)
+- ✅ `prisma/scripts/discover-mimo-api.ts` - API discovery (ran, no match)
 - ✅ `docs/PHASE2_RISK_ANALYSIS.md` - Risk assessment
 - ✅ `docs/EMBEDDING_PROVIDERS_CHINA.md` - Provider comparison
 - ✅ `docs/MIMO_EMBEDDING_INFO.md` - MiMO reference

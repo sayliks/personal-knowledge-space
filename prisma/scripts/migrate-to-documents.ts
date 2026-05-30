@@ -11,10 +11,10 @@
  * The script uses raw SQL to read old tables, so it works even after schema changes.
  *
  * Usage:
- *   npx tsx prisma/migrate-to-documents.ts
+ *   npx tsx prisma/scripts/migrate-to-documents.ts
  */
 
-import { PrismaClient } from "../app/generated/prisma/client";
+import { PrismaClient } from "../../app/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import "dotenv/config";
 

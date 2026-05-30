@@ -1,4 +1,4 @@
-import { PrismaClient } from "../app/generated/prisma/client";
+import { PrismaClient } from "../../app/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import bcrypt from "bcryptjs";
 import "dotenv/config";
@@ -25,8 +25,8 @@ async function updateAdminPassword(newPassword: string) {
 
 const password = process.argv[2];
 if (!password) {
-  console.error("❌ Usage: npx tsx prisma/update-password.ts YOUR_NEW_PASSWORD");
-  console.error('   Example: npx tsx prisma/update-password.ts "MyNewPassword123"');
+  console.error("❌ Usage: npx tsx prisma/scripts/update-password.ts YOUR_NEW_PASSWORD");
+  console.error('   Example: npx tsx prisma/scripts/update-password.ts "MyNewPassword123"');
   process.exit(1);
 }
 

@@ -12,7 +12,7 @@
  * - npm install openai
  */
 
-import { PrismaClient } from "../app/generated/prisma/client";
+import { PrismaClient } from "../../app/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import OpenAI from "openai";
 import "dotenv/config";

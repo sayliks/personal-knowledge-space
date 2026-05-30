@@ -1,7 +1,7 @@
 /**
  * Test pgvector extension availability on Supabase
  */
-import { PrismaClient } from "../app/generated/prisma/client";
+import { PrismaClient } from "../../app/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import "dotenv/config";
 

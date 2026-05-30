@@ -29,7 +29,7 @@ User, Document (POST/NOTE/PAGE/CATEGORY), Tag, DocumentTag, DocumentRelation, Co
 
 1. Backup the database and test on a copy first.
 2. Ensure the Document tables exist while old Post/Category/PostTag tables are still present.
-3. Run `npx tsx prisma/migrate-to-documents.ts` to copy data into Document/DocumentTag and update Comment references.
+3. Run `npx tsx prisma/scripts/migrate-to-documents.ts` to copy data into Document/DocumentTag and update Comment references.
 4. Apply the final schema to drop old tables, then run `npx prisma generate`.
 5. Verify the app and data before deploying.
 

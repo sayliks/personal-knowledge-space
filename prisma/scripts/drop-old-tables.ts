@@ -2,16 +2,16 @@
  * Drop old tables after Document migration is verified.
  *
  * Run this ONLY after:
- * 1. prisma/migrate-complete.ts has run successfully
+ * 1. prisma/scripts/migrate-complete.ts has run successfully
  * 2. You have verified the app works with the new Document model
  *
  * This is DESTRUCTIVE and irreversible. The old Post, Category, and PostTag
  * tables (your safety backup) will be permanently removed.
  *
- * Usage: npx tsx prisma/drop-old-tables.ts
+ * Usage: npx tsx prisma/scripts/drop-old-tables.ts
  */
 
-import { PrismaClient } from "../app/generated/prisma/client";
+import { PrismaClient } from "../../app/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import "dotenv/config";
 
