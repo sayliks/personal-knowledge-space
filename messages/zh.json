@@ -9,7 +9,8 @@
     "tryAgain": "重试",
     "loading": "加载中...",
     "toggleTheme": "切换主题",
-    "siteTitle": "sayliks 的笔记"
+    "siteTitle": "sayliks 的笔记",
+    "tended": "已修订"
   },
 
   "about": {
@@ -145,8 +146,6 @@
     "exploreGarden": "探索笔记",
     "notesLabel": "笔记",
     "allNotes": "全部笔记",
-    "tendedLabel": "近期打理",
-    "tendedMark": "已修订",
     "topicsLabel": "主题",
     "threadsLabel": "线索",
     "categoryDescDefault": "探索这个领域的想法和笔记",

@@ -1,4 +1,6 @@
-import { getPublishedPosts, getAllCategories, getAllTags, getRecentlyTended } from "@/lib/queries"
+import { getPublishedPosts, getAllCategories, getAllTags } from "@/lib/queries"
+import { isTended } from "@/lib/tended"
+import { formatDateShort } from "@/lib/utils"
 import { getTranslations } from "next-intl/server"
 import Link from "next/link"
 import type { Metadata } from "next"
@@ -22,12 +24,12 @@ function noteDate(d: Date | null) {
 
 export default async function HomePage() {
   const t = await getTranslations("home")
+  const tCommon = await getTranslations("common")
 
-  const [{ posts }, categories, tags, tended] = await Promise.all([
+  const [{ posts }, categories, tags] = await Promise.all([
     getPublishedPosts({ page: 1, pageSize: 14 }),
     getAllCategories(),
     getAllTags(),
-    getRecentlyTended(5),
   ])
 
   const sortedTags = [...tags]
@@ -73,6 +75,11 @@ export default async function HomePage() {
                   <span className="flex-1 text-sm leading-snug text-foreground/85 group-hover:text-foreground decoration-border underline-offset-4 group-hover:underline">
                     {post.title}
                   </span>
+                  {isTended(post) && (
+                    <span className="shrink-0 self-start pt-0.5 font-mono text-[11px] text-muted-foreground/30">
+                      {tCommon("tended")} {formatDateShort(post.updatedAt)}
+                    </span>
+                  )}
                   {post.category && (
                     <span className="shrink-0 self-start pt-0.5 font-mono text-[11px] text-muted-foreground/35">
                       {post.category.title}
@@ -93,39 +100,6 @@ export default async function HomePage() {
           </Link>
         )}
       </section>
-
-      {/* Tended — notes revisited after publishing, dated by last edit.
-          Renders only once the space has actually been tended over time. */}
-      {tended.length > 0 && (
-        <section className="border-t border-border/40 py-10">
-          <h2 className="mb-6 font-mono text-xs lowercase tracking-wide text-muted-foreground/50">
-            {t("tendedLabel")}
-          </h2>
-          <ul>
-            {tended.map((post) => (
-              <li key={post.id} className="group">
-                <Link
-                  href={`/posts/${post.slug}`}
-                  className="flex gap-4 py-1.5 -mx-2 px-2 rounded hover:bg-muted/40 transition-colors"
-                >
-                  <time
-                    dateTime={post.updatedAt.toISOString()}
-                    className="shrink-0 pt-0.5 font-mono text-xs tabular-nums text-muted-foreground/40"
-                  >
-                    {noteDate(post.updatedAt)}
-                  </time>
-                  <span className="flex-1 text-sm leading-snug text-foreground/85 group-hover:text-foreground decoration-border underline-offset-4 group-hover:underline">
-                    {post.title}
-                  </span>
-                  <span className="shrink-0 self-start pt-0.5 font-mono text-[11px] text-muted-foreground/35">
-                    {t("tendedMark")}
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
 
       {/* Topics — categories as plain inline references */}
       {categories.length > 0 && (

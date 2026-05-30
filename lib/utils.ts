@@ -16,6 +16,11 @@ export function formatDateLong(date: Date | string): string {
   return format(d, "MMMM d, yyyy")
 }
 
+export function formatDateShort(date: Date | string): string {
+  const d = typeof date === "string" ? parseISO(date) : date
+  return format(d, "MM.dd")
+}
+
 export function escapeRegex(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
 }

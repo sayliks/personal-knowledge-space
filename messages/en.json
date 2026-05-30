@@ -9,7 +9,8 @@
     "tryAgain": "Try Again",
     "loading": "Loading...",
     "toggleTheme": "Toggle theme",
-    "siteTitle": "sayliks's garden"
+    "siteTitle": "sayliks's garden",
+    "tended": "tended"
   },
   "about": {
     "title": "About",
@@ -143,8 +144,6 @@
     "exploreGarden": "Explore the garden",
     "notesLabel": "notes",
     "allNotes": "all notes",
-    "tendedLabel": "recently tended",
-    "tendedMark": "tended",
     "topicsLabel": "topics",
     "threadsLabel": "threads",
     "categoryDescDefault": "Explore ideas and notes in this area",

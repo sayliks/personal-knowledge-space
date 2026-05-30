@@ -1,6 +1,5 @@
 import { prisma } from "@/lib/prisma";
 import type { Prisma } from "@/app/generated/prisma/client";
-import { isTended } from "./tended";
 
 const DOCUMENT_INCLUDES = {
   author: { select: { id: true, name: true } },
@@ -45,23 +44,6 @@ export async function getPublishedPosts(params: {
   ]);
 
   return { posts, total, page, pageSize, totalPages: Math.ceil(total / pageSize) };
-}
-
-export async function getRecentlyTended(limit = 6) {
-  // Pull a bounded window of recently-saved published notes, then keep only
-  // the ones the shared rule counts as genuinely tended. Derivation-only, no schema.
-  const candidates = await prisma.document.findMany({
-    where: {
-      type: "POST",
-      published: true,
-      publishedAt: { lte: new Date() },
-    },
-    include: DOCUMENT_INCLUDES,
-    orderBy: { updatedAt: "desc" },
-    take: limit * 4,
-  });
-
-  return candidates.filter(isTended).slice(0, limit);
 }
 
 export async function getPostBySlug(slug: string) {
