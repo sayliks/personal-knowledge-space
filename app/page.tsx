@@ -1,5 +1,5 @@
-import { getPublishedPosts, getAllCategories, getAllTags } from "@/lib/queries"
-import { isTended } from "@/lib/tended"
+import { getAllCategories, getAllTags, getPublishedPosts } from "@/lib/queries"
+import { isPostRevisited } from "@/lib/posts/revision-status"
 import { formatDateShort } from "@/lib/utils"
 import { getTranslations } from "next-intl/server"
 import Link from "next/link"
@@ -75,7 +75,7 @@ export default async function HomePage() {
                   <span className="flex-1 text-sm leading-snug text-foreground/85 group-hover:text-foreground decoration-border underline-offset-4 group-hover:underline">
                     {post.title}
                   </span>
-                  {isTended(post) && (
+                  {isPostRevisited(post) && (
                     <span className="shrink-0 self-start pt-0.5 font-mono text-[11px] text-muted-foreground/30">
                       {tCommon("tended")} {formatDateShort(post.updatedAt)}
                     </span>

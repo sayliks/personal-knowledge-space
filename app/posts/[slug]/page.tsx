@@ -1,14 +1,14 @@
 import { Suspense } from "react"
 import Link from "next/link"
-import { getPostBySlug } from "@/lib/queries"
 import { notFound } from "next/navigation"
 import { getTranslations } from "next-intl/server"
-import { MarkdownRenderer } from "@/components/blog/MarkdownRenderer"
-import { CommentSection } from "@/components/blog/CommentSection"
 import { Backlinks } from "@/components/blog/Backlinks"
+import { CommentSection } from "@/components/blog/CommentSection"
+import { MarkdownRenderer } from "@/components/blog/MarkdownRenderer"
 import { RelatedNotes } from "@/components/blog/RelatedNotes"
+import { isPostRevisited } from "@/lib/posts/revision-status"
+import { getPostBySlug } from "@/lib/queries"
 import { formatDateLong } from "@/lib/utils"
-import { isTended } from "@/lib/tended"
 import type { Metadata } from "next"
 
 export const dynamic = "force-dynamic"
@@ -63,7 +63,7 @@ export default async function PostPage({
           <time dateTime={post.publishedAt?.toISOString()}>
             {post.publishedAt ? formatDateLong(post.publishedAt) : t("draft")}
           </time>
-          {isTended(post) && (
+          {isPostRevisited(post) && (
             <>
               <span className="text-border/60">·</span>
               <time dateTime={post.updatedAt.toISOString()}>
