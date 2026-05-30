@@ -196,16 +196,24 @@ export function KnowledgeGraph() {
 
   if (error) {
     return (
-      <div className="w-full h-[60vh] min-h-[400px] max-h-[700px] rounded-lg bg-muted flex items-center justify-center">
-        <span className="text-muted-foreground text-sm">{t("loadError")}</span>
+      <div className="flex h-[60vh] min-h-[400px] max-h-[700px] w-full items-center justify-center border-y border-border/40">
+        <span className="font-mono text-xs text-muted-foreground/55">{t("loadError")}</span>
       </div>
     )
   }
 
   if (!data) {
     return (
-      <div className="w-full h-[60vh] min-h-[400px] max-h-[700px] rounded-lg bg-muted animate-pulse flex items-center justify-center">
-        <span className="text-muted-foreground text-sm">{t("loading")}</span>
+      <div className="flex h-[60vh] min-h-[400px] max-h-[700px] w-full animate-pulse items-center justify-center border-y border-border/40">
+        <span className="font-mono text-xs text-muted-foreground/55">{t("loading")}</span>
+      </div>
+    )
+  }
+
+  if (data.nodes.length === 0) {
+    return (
+      <div className="flex h-[60vh] min-h-[400px] max-h-[700px] w-full items-center justify-center border-y border-border/40">
+        <span className="font-mono text-xs text-muted-foreground/55">{t("empty")}</span>
       </div>
     )
   }
@@ -215,7 +223,7 @@ export function KnowledgeGraph() {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-[60vh] min-h-[400px] max-h-[700px] rounded-lg overflow-hidden"
+      className="relative h-[60vh] min-h-[400px] max-h-[700px] w-full overflow-hidden border-y border-border/40"
       style={{ background: isDark ? "#09090b" : "#fafafa" }}
     >
       {/* @ts-expect-error ForceGraph2D generic types don't match our custom GraphNode/GraphLink */}
@@ -240,7 +248,7 @@ export function KnowledgeGraph() {
 
       {hoveredNode && (
         <div
-          className="absolute top-4 left-4 px-3 py-2 rounded-md text-sm pointer-events-none"
+          className="pointer-events-none absolute left-4 top-4 px-3 py-2 text-sm"
           style={{
             background: isDark ? "rgba(9,9,11,0.9)" : "rgba(250,250,250,0.9)",
             border: `1px solid ${colorForGroup(hoveredNode.group)}`,
@@ -252,7 +260,7 @@ export function KnowledgeGraph() {
         </div>
       )}
 
-      <div className="absolute bottom-3 right-3 text-xs text-muted-foreground">
+      <div className="absolute bottom-3 right-3 font-mono text-xs text-muted-foreground/55">
         {t("stats", { nodes: data.nodes.length, links: data.links.length })}
       </div>
     </div>

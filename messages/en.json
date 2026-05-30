@@ -3,6 +3,7 @@
     "articles": "Writing",
     "about": "About",
     "search": "Explore",
+    "graph": "Graph",
     "admin": "Admin",
     "signOut": "Sign Out",
     "backToHome": "Back to Home",
@@ -209,8 +210,11 @@
     "untitled": "Untitled"
   },
   "graph": {
+    "title": "knowledge graph",
+    "description": "A map of notes connected by wiki-links. Each point is a published post; each line is a reference from one note to another.",
     "backlinks": "Backlinks",
     "loading": "Loading graph...",
+    "empty": "No linked notes yet.",
     "loadError": "Failed to load graph",
     "stats": "{nodes} nodes · {links} links"
   },

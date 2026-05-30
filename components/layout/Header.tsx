@@ -19,6 +19,9 @@ export async function Header() {
           <Link href="/posts" className="hover:text-foreground transition-colors">
             {t("articles")}
           </Link>
+          <Link href="/graph" className="hover:text-foreground transition-colors">
+            {t("graph")}
+          </Link>
           <Link href="/about" className="hover:text-foreground transition-colors">
             {t("about")}
           </Link>
