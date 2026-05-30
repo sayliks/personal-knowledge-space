@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server"
 import type { Metadata } from "next"
+import Image from "next/image"
 
 export const dynamic = "force-static"
 
@@ -66,29 +67,50 @@ export default function AboutPage() {
         <h2 className="mb-5 font-mono text-xs lowercase tracking-wide text-muted-foreground/50">
           elsewhere
         </h2>
-        <ul className="flex flex-wrap gap-x-5 gap-y-2 font-mono text-xs text-muted-foreground/60">
-          <li>
+        <div className="space-y-4 font-mono text-xs text-muted-foreground/65">
+          <div className="flex flex-wrap gap-x-5 gap-y-2">
             <a
               href="https://github.com/sayliks"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
+              className="transition-colors hover:text-foreground"
             >
-              GitHub
+              GitHub: github.com/sayliks
             </a>
-          </li>
-          <li>
             <a
-              href="https://x.com/sayliks"
+              href="https://x.com/frsayliks"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
+              className="transition-colors hover:text-foreground"
             >
-              X
+              X: frsayliks
             </a>
-          </li>
-          <li className="text-muted-foreground/35">Email</li>
-        </ul>
+            <a
+              href="mailto:sayliks@outlook.com"
+              className="transition-colors hover:text-foreground"
+            >
+              Email: sayliks@outlook.com
+            </a>
+          </div>
+
+          <div className="relative inline-flex w-fit group">
+            <span className="text-muted-foreground/50">QQ:</span>
+            <span className="ml-2 text-foreground">2338247697</span>
+
+            <div className="pointer-events-none absolute bottom-full left-0 z-10 mb-3 hidden w-56 rounded-2xl border border-border/60 bg-card/95 p-3 shadow-xl backdrop-blur-sm group-hover:block group-focus-within:block">
+              <Image
+                src="/images/contact/qq-qr-code.png"
+                alt="QQ 二维码"
+                width={768}
+                height={1365}
+                className="h-auto w-full rounded-lg"
+              />
+              <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground/60">
+                鼠标悬停在 QQ 号码上时显示。
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
     </div>
   )
