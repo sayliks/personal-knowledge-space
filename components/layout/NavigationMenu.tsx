@@ -1,0 +1,89 @@
+"use client"
+
+import { useState } from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { useTranslations } from "next-intl"
+import { Dialog as DialogPrimitive } from "@base-ui/react/dialog"
+import { Menu, X } from "lucide-react"
+import { ThemeToggle } from "@/components/layout/ThemeToggle"
+
+type NavigationMenuProps = {
+  labels: {
+    articles: string
+    graph: string
+    about: string
+    search: string
+  }
+}
+
+const links = [
+  { href: "/posts", key: "articles" },
+  { href: "/graph", key: "graph" },
+  { href: "/about", key: "about" },
+  { href: "/search", key: "search" },
+] as const
+
+export function NavigationMenu({ labels }: NavigationMenuProps) {
+  const t = useTranslations("common")
+  const pathname = usePathname()
+  const [open, setOpen] = useState(false)
+
+  return (
+    <DialogPrimitive.Root open={open} onOpenChange={setOpen}>
+      <DialogPrimitive.Trigger
+        aria-label={t("menu")}
+        className="inline-flex size-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+      >
+        <Menu className="size-[18px]" />
+      </DialogPrimitive.Trigger>
+
+      <DialogPrimitive.Portal>
+        <DialogPrimitive.Backdrop className="fixed inset-0 z-50 bg-foreground/10 data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0 dark:bg-black/20" />
+        <DialogPrimitive.Popup className="navigation-overlay fixed inset-0 z-50 flex flex-col px-5 pb-8 pt-3.5 outline-none data-open:animate-in data-open:fade-in-0 data-open:slide-in-from-top-1 data-closed:animate-out data-closed:fade-out-0 data-closed:slide-out-to-top-1 sm:px-6">
+          <div className="mx-auto flex w-full max-w-[760px] items-center justify-between">
+            <DialogPrimitive.Title className="font-mono text-[11px] uppercase tracking-[0.16em] text-foreground/42 dark:text-foreground/46">
+              {t("navigation")}
+            </DialogPrimitive.Title>
+            <DialogPrimitive.Close
+              aria-label={t("closeMenu")}
+              className="inline-flex size-8 items-center justify-center rounded-md text-foreground/52 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+            >
+              <X className="size-[18px]" />
+            </DialogPrimitive.Close>
+          </div>
+
+          <div className="mx-auto flex w-full max-w-[760px] flex-1 flex-col justify-center py-8 sm:py-12">
+            <nav className="flex flex-col gap-1 sm:gap-2">
+              {links.map((link) => {
+                const active =
+                  pathname === link.href || pathname.startsWith(`${link.href}/`)
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    aria-current={active ? "page" : undefined}
+                    onClick={() => setOpen(false)}
+                    className="navigation-menu-link group relative py-1.5 transition duration-200 hover:translate-x-1"
+                  >
+                    <span className="absolute left-0 top-1/2 size-1.5 -translate-x-5 -translate-y-1/2 rounded-full bg-current opacity-0 transition-opacity group-aria-[current=page]:opacity-35" />
+                    {labels[link.key]}
+                  </Link>
+                )
+              })}
+            </nav>
+
+            <div className="mt-10 flex items-center justify-between border-t border-foreground/10 pt-5 dark:border-white/10 sm:mt-12">
+              <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-foreground/42 dark:text-foreground/48">
+                {t("appearance")}
+              </span>
+              <div className="text-foreground/70">
+                <ThemeToggle />
+              </div>
+            </div>
+          </div>
+        </DialogPrimitive.Popup>
+      </DialogPrimitive.Portal>
+    </DialogPrimitive.Root>
+  )
+}
