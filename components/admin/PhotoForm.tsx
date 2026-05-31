@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { useTranslations } from "next-intl"
 import { toast } from "sonner"
 import { createPhoto, updatePhoto } from "@/app/actions/photos"
 import type { Photo, Tag } from "@/app/generated/prisma/client"
@@ -12,6 +13,7 @@ interface PhotoFormProps {
 }
 
 export function PhotoForm({ photo, allTags }: PhotoFormProps) {
+  const t = useTranslations("studio")
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [selectedTags, setSelectedTags] = useState<string[]>(
@@ -30,7 +32,7 @@ export function PhotoForm({ photo, allTags }: PhotoFormProps) {
       : await createPhoto(formData)
 
     if (result.success) {
-      toast.success(photo ? "Photo updated" : "Photo created")
+      toast.success(photo ? t("photoUpdated") : t("photoCreated"))
       router.push("/admin/photos")
       router.refresh()
     } else {
@@ -43,7 +45,7 @@ export function PhotoForm({ photo, allTags }: PhotoFormProps) {
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Title */}
       <div>
-        <label className="block text-sm font-medium mb-2">Title</label>
+        <label className="block text-sm font-medium mb-2">{t("photoTitle")}</label>
         <input
           type="text"
           name="title"
@@ -55,7 +57,7 @@ export function PhotoForm({ photo, allTags }: PhotoFormProps) {
 
       {/* Image URL */}
       <div>
-        <label className="block text-sm font-medium mb-2">Image URL</label>
+        <label className="block text-sm font-medium mb-2">{t("photoImageUrl")}</label>
         <input
           type="url"
           name="imageUrl"
@@ -68,7 +70,7 @@ export function PhotoForm({ photo, allTags }: PhotoFormProps) {
 
       {/* Description */}
       <div>
-        <label className="block text-sm font-medium mb-2">Description (optional)</label>
+        <label className="block text-sm font-medium mb-2">{t("photoDescription")}</label>
         <textarea
           name="description"
           defaultValue={photo?.description ?? ""}
@@ -79,19 +81,19 @@ export function PhotoForm({ photo, allTags }: PhotoFormProps) {
 
       {/* Order */}
       <div>
-        <label className="block text-sm font-medium mb-2">Display Order</label>
+        <label className="block text-sm font-medium mb-2">{t("photoOrder")}</label>
         <input
           type="number"
           name="order"
           defaultValue={photo?.order ?? 0}
           className="w-full px-3 py-2 border border-input rounded-md bg-background"
         />
-        <p className="text-xs text-muted-foreground mt-1">Lower numbers appear first</p>
+        <p className="text-xs text-muted-foreground mt-1">{t("photoOrderHint")}</p>
       </div>
 
       {/* Tags */}
       <div>
-        <label className="block text-sm font-medium mb-2">Tags</label>
+        <label className="block text-sm font-medium mb-2">{t("photoTags")}</label>
         <div className="flex flex-wrap gap-2">
           {allTags.map(tag => (
             <button
@@ -126,7 +128,7 @@ export function PhotoForm({ photo, allTags }: PhotoFormProps) {
           value="true"
           className="rounded"
         />
-        <label htmlFor="published" className="text-sm">Published</label>
+        <label htmlFor="published" className="text-sm">{t("photoPublished")}</label>
       </div>
 
       {/* Actions */}
@@ -136,14 +138,14 @@ export function PhotoForm({ photo, allTags }: PhotoFormProps) {
           disabled={loading}
           className="px-4 py-2 bg-foreground text-background rounded-lg hover:bg-foreground/90 disabled:opacity-50"
         >
-          {loading ? "Saving..." : photo ? "Update Photo" : "Create Photo"}
+          {loading ? t("saving") : photo ? t("updatePhoto") : t("createPhoto")}
         </button>
         <button
           type="button"
           onClick={() => router.back()}
           className="px-4 py-2 border border-border rounded-lg hover:bg-muted"
         >
-          Cancel
+          {t("cancel")}
         </button>
       </div>
     </form>

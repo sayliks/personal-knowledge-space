@@ -25,7 +25,7 @@ export default async function PhotosAdminPage() {
           href="/admin/photos/new"
           className="inline-flex items-center gap-2 px-4 py-2 rounded bg-muted hover:bg-muted/80 transition-colors text-sm"
         >
-          + Add Photo
+          + {t("addPhoto")}
         </Link>
       </div>
 
@@ -47,12 +47,12 @@ export default async function PhotosAdminPage() {
                   href={`/admin/photos/${photo.id}/edit`}
                   className="px-3 py-1 bg-white text-black rounded text-xs hover:bg-white/90"
                 >
-                  Edit
+                  {t("edit")}
                 </Link>
                 <InlineRemoveForm
                   id={photo.id}
                   action={deletePhoto}
-                  label="Delete"
+                  label={t("remove")}
                 />
               </div>
             </div>
@@ -62,7 +62,7 @@ export default async function PhotosAdminPage() {
 
       {photos.length === 0 && (
         <p className="text-center text-sm text-muted-foreground py-12">
-          No photos yet. Add your first photo to get started.
+          {t("noPhotos")}
         </p>
       )}
     </div>

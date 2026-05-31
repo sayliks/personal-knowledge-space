@@ -14,7 +14,7 @@ export default async function EditPhotoPage({ params }: { params: { id: string }
   return (
     <div className="space-y-8">
       <header>
-        <h1 className="text-2xl font-medium">Edit Photo</h1>
+        <h1 className="text-2xl font-medium">{t("editPhoto")}</h1>
       </header>
       <PhotoForm photo={photo} allTags={allTags} />
     </div>

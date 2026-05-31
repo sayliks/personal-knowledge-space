@@ -9,7 +9,7 @@ export default async function NewPhotoPage() {
   return (
     <div className="space-y-8">
       <header>
-        <h1 className="text-2xl font-medium">Add Photo</h1>
+        <h1 className="text-2xl font-medium">{t("addPhoto")}</h1>
       </header>
       <PhotoForm allTags={allTags} />
     </div>
