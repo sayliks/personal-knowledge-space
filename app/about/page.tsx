@@ -30,14 +30,6 @@ const paragraphs = [
   "如果你也对技术、阅读、音乐或者任何其他有趣的事物感兴趣，欢迎来和我聊聊 :)",
 ]
 
-const skills = [
-  "HTML", "CSS", "JavaScript", "TypeScript", "Python", "Java", "C", "C++",
-  "React", "Next.js", "Tailwind CSS", "Node.js", "FastAPI", "Spring Boot",
-  "MySQL", "PostgreSQL", "SQLite", "MongoDB", "Redis",
-  "Docker", "Nginx", "Linux", "Git", "GitHub Actions",
-  "Cloudflare", "Vercel", "Kubernetes",
-]
-
 export default function AboutPage() {
   return (
     <div className="mx-auto max-w-2xl px-5 sm:px-6">
@@ -51,18 +43,6 @@ export default function AboutPage() {
             <p key={i}>{p}</p>
           ))}
         </div>
-      </section>
-
-      {/* 工具 — 低调的内联索引，不用标签样式 */}
-      <section className="border-t border-border/40 py-10">
-        <h2 className="mb-5 font-mono text-xs lowercase tracking-wide text-muted-foreground/50">
-          工具
-        </h2>
-        <p className="flex flex-wrap gap-x-3 gap-y-1.5 font-mono text-xs text-muted-foreground/55">
-          {skills.map((s) => (
-            <span key={s}>{s}</span>
-          ))}
-        </p>
       </section>
 
       {/* 站外链接 — 低调的等宽排版 */}
