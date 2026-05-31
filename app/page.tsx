@@ -67,24 +67,24 @@ export default async function HomePage() {
                 <li key={post.id} className="group">
                   <Link
                     href={`/posts/${post.slug}`}
-                    className="-mx-2 grid grid-cols-[7.5rem_minmax(0,1fr)] gap-x-4 rounded px-2 py-1.5 transition-colors hover:bg-muted/40 sm:grid-cols-[7.5rem_minmax(0,1fr)_auto_auto]"
+                    className="-mx-2 grid grid-cols-[7.5rem_minmax(0,1fr)] gap-x-4 rounded px-2 py-2.5 transition-colors hover:bg-muted/40 sm:grid-cols-[7.5rem_minmax(0,1fr)_auto_auto]"
                   >
                     <time
                       dateTime={post.publishedAt?.toISOString()}
-                      className="pt-0.5 font-mono text-xs tabular-nums text-muted-foreground/60"
+                      className="pt-0.5 font-mono text-sm tabular-nums text-muted-foreground/60"
                     >
                       {noteDate(post.publishedAt)}
                     </time>
-                    <span className="text-sm leading-snug text-foreground font-medium decoration-border underline-offset-4 group-hover:underline">
+                    <span className="text-base leading-snug text-foreground font-medium decoration-border underline-offset-4 group-hover:underline">
                       {post.title}
                     </span>
                     {isPostRevisited(post) && (
-                      <span className="col-start-2 self-start pt-0.5 font-mono text-[11px] text-muted-foreground/50 sm:col-start-auto">
+                      <span className="col-start-2 self-start pt-0.5 font-mono text-xs text-muted-foreground/50 sm:col-start-auto">
                         {tCommon("tended")} {formatDateShort(post.updatedAt)}
                       </span>
                     )}
                     {post.category && (
-                      <span className="col-start-2 self-start pt-0.5 font-mono text-[11px] text-muted-foreground/55 sm:col-start-auto">
+                      <span className="col-start-2 self-start pt-0.5 font-mono text-xs text-muted-foreground/55 sm:col-start-auto">
                         {post.category.title}
                       </span>
                     )}
