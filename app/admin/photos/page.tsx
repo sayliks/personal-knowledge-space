@@ -52,7 +52,6 @@ export default async function PhotosAdminPage() {
                 <InlineRemoveForm
                   id={photo.id}
                   action={deletePhoto}
-                  label={t("remove")}
                 />
               </div>
             </div>
