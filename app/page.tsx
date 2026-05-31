@@ -46,13 +46,13 @@ export default async function HomePage() {
         </div>
 
         {/* Writing Section */}
-        <header className="pb-8 flex items-center justify-between">
+        <header className="pb-8 flex items-center justify-between gap-4">
           <h1 className="font-mono text-xs lowercase tracking-wide text-muted-foreground font-medium">
             {tPosts("title")}
           </h1>
           <Link
             href="/posts"
-            className="font-mono text-xs lowercase tracking-wide text-muted-foreground/50 hover:text-foreground transition-colors"
+            className="font-mono text-xs lowercase tracking-wide text-muted-foreground/50 hover:text-foreground transition-colors shrink-0"
           >
             {tPosts("viewAll")}
           </Link>
@@ -67,11 +67,11 @@ export default async function HomePage() {
                 <li key={post.id} className="group">
                   <Link
                     href={`/posts/${post.slug}`}
-                    className="-mx-2 grid grid-cols-[7.5rem_minmax(0,1fr)] gap-x-4 rounded px-2 py-2.5 transition-colors hover:bg-muted/40 sm:grid-cols-[7.5rem_minmax(0,1fr)_auto_auto]"
+                    className="-mx-2 grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-3 rounded px-2 py-2.5 transition-colors hover:bg-muted/40 sm:grid-cols-[7.5rem_minmax(0,1fr)_auto_auto] sm:gap-x-4"
                   >
                     <time
                       dateTime={post.publishedAt?.toISOString()}
-                      className="pt-0.5 font-mono text-sm tabular-nums text-muted-foreground/60"
+                      className="pt-0.5 font-mono text-xs tabular-nums text-muted-foreground/60 sm:text-sm"
                     >
                       {noteDate(post.publishedAt)}
                     </time>
@@ -98,13 +98,13 @@ export default async function HomePage() {
         {/* Photo Wall Section */}
         {photos.length > 0 && (
           <>
-            <header className="pt-8 pb-6 flex items-center justify-between">
+            <header className="pt-8 pb-6 flex items-center justify-between gap-4">
               <h2 className="font-mono text-xs lowercase tracking-wide text-muted-foreground font-medium">
                 {tPosts("gallery")}
               </h2>
               <Link
                 href="/gallery"
-                className="font-mono text-xs lowercase tracking-wide text-muted-foreground/50 hover:text-foreground transition-colors"
+                className="font-mono text-xs lowercase tracking-wide text-muted-foreground/50 hover:text-foreground transition-colors shrink-0"
               >
                 {tPosts("viewAll")}
               </Link>
