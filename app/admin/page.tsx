@@ -15,23 +15,7 @@ export default async function StudioDashboard() {
         <h1 className="text-2xl font-medium mb-2">
           {t("welcome")}
         </h1>
-        <p className="text-sm text-muted-foreground">
-          {t("welcomeMessage")}
-        </p>
       </header>
-
-      {/* Currently section */}
-      <section className="pt-6 border-t border-border/40">
-        <div className="flex items-center gap-2 mb-3">
-          <span className="text-xs text-muted-foreground">
-            {t("currentlyLabel")}
-          </span>
-          <div className="h-1 w-1 rounded-full bg-primary/50" />
-        </div>
-        <p className="text-sm text-muted-foreground">
-          {t("currentlyMessage")}
-        </p>
-      </section>
 
       {/* Garden overview */}
       <section>
