@@ -1,7 +1,8 @@
 import { getTranslations } from "next-intl/server"
 import type { Metadata } from "next"
 import Link from "next/link"
-import { BlackMirrorSplash } from "./BlackMirrorSplash"
+import { cookies } from "next/headers"
+import { SayliksSplash } from "./SayliksSplash"
 import { isPostRevisited } from "@/lib/posts/revision-status"
 import { getPublishedPosts } from "@/lib/queries"
 import { formatDateShort } from "@/lib/utils"
@@ -27,11 +28,13 @@ function noteDate(d: Date | null) {
 export default async function HomePage() {
   const tPosts = await getTranslations("posts")
   const tCommon = await getTranslations("common")
+  const cookieStore = await cookies()
+  const shouldPlayIntro = cookieStore.get("sayliks_intro_seen")?.value !== "1"
   const { posts } = await getPublishedPosts({ page: 1, pageSize: 40 })
 
   return (
     <>
-      <BlackMirrorSplash />
+      <SayliksSplash shouldPlay={shouldPlayIntro} />
       <div className="mx-auto max-w-[908px] px-5 sm:px-6">
         <header className="pt-14 pb-8 sm:pt-20">
           <h1 className="font-mono text-xs lowercase tracking-wide text-muted-foreground/50">

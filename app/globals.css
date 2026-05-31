@@ -845,16 +845,16 @@ html.dark .knowledge-hero-highlight::before {
   background: oklch(0.74 0.18 140 / 56%);
 }
 
-body:has(.black-mirror-home) {
+body:has(.sayliks-intro-home) {
   overflow: hidden;
   background: #000;
 }
 
-body:has(.black-mirror-home) > header,
-body:has(.black-mirror-home) > footer {
+body:has(.sayliks-intro-home) > header,
+body:has(.sayliks-intro-home) > footer {
   display: none;
 }
 
-body:has(.black-mirror-home) > main {
+body:has(.sayliks-intro-home) > main {
   min-height: 100dvh;
 }
