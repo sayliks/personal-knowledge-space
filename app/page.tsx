@@ -1,24 +1,81 @@
+import { getTranslations } from "next-intl/server"
 import type { Metadata } from "next"
-import styles from "./page.module.css"
+import Link from "next/link"
+import { BlackMirrorSplash } from "./BlackMirrorSplash"
+import { isPostRevisited } from "@/lib/posts/revision-status"
+import { getPublishedPosts } from "@/lib/queries"
+import { formatDateShort } from "@/lib/utils"
 
 export const dynamic = "force-dynamic"
 
-export const metadata: Metadata = {
-  title: "BLACK MIRROR",
-  description: "BLACK MIRROR",
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("home")
+
+  return {
+    title: t("siteTitle"),
+    description: t("tagline"),
+  }
 }
 
-export default function HomePage() {
+function noteDate(d: Date | null) {
+  if (!d) return "····"
+  return d
+    .toLocaleDateString("en-CA", { year: "numeric", month: "2-digit", day: "2-digit" })
+    .replace(/-/g, ".")
+}
+
+export default async function HomePage() {
+  const tPosts = await getTranslations("posts")
+  const tCommon = await getTranslations("common")
+  const { posts } = await getPublishedPosts({ page: 1, pageSize: 40 })
+
   return (
-    <div className={`${styles.home} black-mirror-home`}>
-      <object
-        aria-label="BLACK MIRROR"
-        className={styles.title}
-        data="/black-mirror.svg"
-        role="img"
-        tabIndex={-1}
-        type="image/svg+xml"
-      />
-    </div>
+    <>
+      <BlackMirrorSplash />
+      <div className="mx-auto max-w-[908px] px-5 sm:px-6">
+        <header className="pt-14 pb-8 sm:pt-20">
+          <h1 className="font-mono text-xs lowercase tracking-wide text-muted-foreground/50">
+            {tPosts("title")}
+          </h1>
+        </header>
+
+        <div className="border-t border-border/40 pt-6 pb-10">
+          {posts.length === 0 ? (
+            <p className="text-sm italic text-muted-foreground/50">{tPosts("noPosts")}</p>
+          ) : (
+            <ul>
+              {posts.map((post) => (
+                <li key={post.id} className="group">
+                  <Link
+                    href={`/posts/${post.slug}`}
+                    className="-mx-2 grid grid-cols-[7.5rem_minmax(0,1fr)] gap-x-4 rounded px-2 py-1.5 transition-colors hover:bg-muted/40 sm:grid-cols-[7.5rem_minmax(0,1fr)_auto_auto]"
+                  >
+                    <time
+                      dateTime={post.publishedAt?.toISOString()}
+                      className="pt-0.5 font-mono text-xs tabular-nums text-muted-foreground/40"
+                    >
+                      {noteDate(post.publishedAt)}
+                    </time>
+                    <span className="text-sm leading-snug text-foreground/85 decoration-border underline-offset-4 group-hover:text-foreground group-hover:underline">
+                      {post.title}
+                    </span>
+                    {isPostRevisited(post) && (
+                      <span className="col-start-2 self-start pt-0.5 font-mono text-[11px] text-muted-foreground/30 sm:col-start-auto">
+                        {tCommon("tended")} {formatDateShort(post.updatedAt)}
+                      </span>
+                    )}
+                    {post.category && (
+                      <span className="col-start-2 self-start pt-0.5 font-mono text-[11px] text-muted-foreground/35 sm:col-start-auto">
+                        {post.category.title}
+                      </span>
+                    )}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+    </>
   )
 }
