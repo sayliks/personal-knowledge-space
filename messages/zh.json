@@ -223,6 +223,7 @@
     "noPhotos": "还没有照片。添加你的第一张照片开始吧。",
     "photoTitle": "标题",
     "photoImageUrl": "图片链接",
+    "photoImageUrlHint": "支持：纯链接、Markdown ![描述](链接) 或 HTML &lt;img src=\"链接\" /&gt;",
     "photoDescription": "描述（可选）",
     "photoOrder": "显示顺序",
     "photoOrderHint": "数字越小越靠前",

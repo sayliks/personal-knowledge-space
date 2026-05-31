@@ -221,6 +221,7 @@
     "noPhotos": "No photos yet. Add your first photo to get started.",
     "photoTitle": "Title",
     "photoImageUrl": "Image URL",
+    "photoImageUrlHint": "Supports: Plain URL, Markdown ![alt](url), or HTML &lt;img src=\"url\" /&gt;",
     "photoDescription": "Description (optional)",
     "photoOrder": "Display Order",
     "photoOrderHint": "Lower numbers appear first",

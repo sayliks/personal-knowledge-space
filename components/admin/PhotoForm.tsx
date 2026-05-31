@@ -67,7 +67,7 @@ export function PhotoForm({ photo, allTags }: PhotoFormProps) {
           className="w-full px-3 py-2 border border-input rounded-md bg-background"
         />
         <p className="text-xs text-muted-foreground mt-1">
-          Supports: Plain URL, Markdown ![alt](url), or HTML &lt;img src="url" /&gt;
+          {t("photoImageUrlHint")}
         </p>
       </div>
 
