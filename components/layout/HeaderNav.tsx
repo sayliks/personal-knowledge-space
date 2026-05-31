@@ -14,11 +14,11 @@ type HeaderNavProps = {
 export function HeaderNav({ labels }: HeaderNavProps) {
   return (
     <div className="flex items-center gap-2 sm:gap-4">
-      <NavigationMenu labels={labels} />
       <div className="flex items-center gap-1 sm:gap-2">
         <ThemeToggle />
         <SearchDialog />
       </div>
+      <NavigationMenu labels={labels} />
     </div>
   )
 }
