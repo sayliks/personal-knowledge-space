@@ -26,16 +26,6 @@ function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-function formatUpdateDate(date: Date | null) {
-  if (!date) return null
-  return date
-    .toLocaleDateString("zh-CN", {
-      month: "2-digit",
-      day: "2-digit",
-    })
-    .replace(/\//g, ".")
-}
-
 async function safeHomeQuery<T>(label: string, query: () => Promise<T>, fallback: T): Promise<T> {
   try {
     return await query()
@@ -105,7 +95,7 @@ export default async function HomePage() {
 
   return (
     <main className="knowledge-home mx-auto w-full max-w-[1180px] px-5 pb-16 pt-12 sm:px-6 sm:pb-24 sm:pt-18">
-      <section className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(300px,380px)] lg:gap-20">
+      <section className="max-w-4xl">
         <div>
           <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-foreground/38">
             {t("indexLabel")}
@@ -142,45 +132,6 @@ export default async function HomePage() {
             ))}
           </nav>
         </div>
-
-        <aside className="lg:pt-40">
-          <div className="flex items-center justify-between border-t border-foreground/10 pt-5 dark:border-white/10">
-            <h2 className="font-mono text-[11px] uppercase tracking-[0.16em] text-foreground/42">
-              {t("recentActivity")}
-            </h2>
-            <Link
-              href="/search"
-              className="font-mono text-[11px] text-muted-foreground/48 transition-colors hover:text-foreground"
-            >
-              {t("exploreGarden")}
-            </Link>
-          </div>
-
-          {posts.length === 0 ? (
-            <p className="mt-6 text-sm italic text-muted-foreground/50">{t("noPostsYet")}</p>
-          ) : (
-            <ul className="mt-5 divide-y divide-foreground/8 dark:divide-white/8">
-              {posts.map((post) => (
-                <li key={post.id}>
-                  <Link
-                    href={`/posts/${post.slug}`}
-                    className="grid gap-2 py-4 text-sm leading-6 text-foreground/48 transition-colors hover:text-foreground/84"
-                  >
-                    <span>{post.title}</span>
-                    <span className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground/36">
-                      {formatUpdateDate(post.publishedAt) && (
-                        <time dateTime={post.publishedAt?.toISOString()}>
-                          {formatUpdateDate(post.publishedAt)}
-                        </time>
-                      )}
-                      {post.category && <span>{post.category.title}</span>}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          )}
-        </aside>
       </section>
 
     </main>
