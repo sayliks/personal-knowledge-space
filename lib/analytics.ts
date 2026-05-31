@@ -4,7 +4,7 @@ export async function getAnalyticsStats(days = 7) {
   const startDate = new Date()
   startDate.setDate(startDate.getDate() - days)
 
-  const [totalViews, uniqueVisitors, topPages, recentVisits] = await Promise.all([
+  const [totalViews, uniqueVisitors, recentVisits] = await Promise.all([
     // Total page views
     prisma.pageView.count({
       where: { createdAt: { gte: startDate } },
@@ -17,15 +17,6 @@ export async function getAnalyticsStats(days = 7) {
       distinct: ["ip"],
     }).then((results) => results.length),
 
-    // Top pages
-    prisma.pageView.groupBy({
-      by: ["path"],
-      where: { createdAt: { gte: startDate } },
-      _count: { path: true },
-      orderBy: { _count: { path: "desc" } },
-      take: 10,
-    }),
-
     // Recent visits
     prisma.pageView.findMany({
       where: { createdAt: { gte: startDate } },
@@ -37,7 +28,6 @@ export async function getAnalyticsStats(days = 7) {
   return {
     totalViews,
     uniqueVisitors,
-    topPages,
     recentVisits,
   }
 }

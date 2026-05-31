@@ -119,12 +119,11 @@
     "totalViews": "Total Views",
     "uniqueVisitors": "Unique Visitors",
     "dailyViews": "Daily Views",
-    "topPages": "Top Pages",
     "recentVisits": "Recent Visits",
-    "views": "views",
     "time": "Time",
     "path": "Path",
     "ip": "IP",
+    "location": "Location",
     "userAgent": "User Agent",
     "referer": "Referer",
     "last7Days": "Last 7 days"

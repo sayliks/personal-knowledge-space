@@ -121,12 +121,11 @@
     "totalViews": "总访问量",
     "uniqueVisitors": "独立访客",
     "dailyViews": "每日访问",
-    "topPages": "热门页面",
     "recentVisits": "最近访问",
-    "views": "次访问",
     "time": "时间",
     "path": "路径",
     "ip": "IP地址",
+    "location": "位置",
     "userAgent": "用户代理",
     "referer": "来源",
     "last7Days": "最近7天"

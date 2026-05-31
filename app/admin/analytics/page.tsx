@@ -13,6 +13,10 @@ function formatDate(date: Date) {
   })
 }
 
+function formatLocation(city: string | null, country: string | null) {
+  return [city, country].filter(Boolean).join(", ") || "-"
+}
+
 export default async function AnalyticsPage() {
   const t = await getTranslations("admin")
   const stats = await getAnalyticsStats(7)
@@ -58,19 +62,6 @@ export default async function AnalyticsPage() {
         </div>
       </div>
 
-      {/* Top Pages */}
-      <div className="border border-border/40 rounded-lg p-6">
-        <h2 className="text-lg font-medium mb-4">{t("topPages")}</h2>
-        <div className="space-y-3">
-          {stats.topPages.map((page) => (
-            <div key={page.path} className="flex items-center justify-between">
-              <div className="text-sm font-mono truncate flex-1">{page.path}</div>
-              <div className="text-sm font-medium ml-4">{page._count.path} {t("views")}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* Recent Visits */}
       <div className="border border-border/40 rounded-lg overflow-hidden">
         <div className="p-6 border-b border-border/40">
@@ -83,6 +74,7 @@ export default async function AnalyticsPage() {
                 <th className="text-left px-4 py-2.5 text-xs font-medium">{t("time")}</th>
                 <th className="text-left px-4 py-2.5 text-xs font-medium">{t("path")}</th>
                 <th className="text-left px-4 py-2.5 text-xs font-medium">{t("ip")}</th>
+                <th className="text-left px-4 py-2.5 text-xs font-medium">{t("location")}</th>
                 <th className="text-left px-4 py-2.5 text-xs font-medium">{t("userAgent")}</th>
                 <th className="text-left px-4 py-2.5 text-xs font-medium">{t("referer")}</th>
               </tr>
@@ -98,6 +90,9 @@ export default async function AnalyticsPage() {
                   </td>
                   <td className="px-4 py-3 text-sm font-mono">
                     {visit.ip || "-"}
+                  </td>
+                  <td className="px-4 py-3 text-sm">
+                    {formatLocation(visit.city, visit.country)}
                   </td>
                   <td className="px-4 py-3 text-sm max-w-xs truncate">
                     {visit.userAgent || "-"}
