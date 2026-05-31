@@ -94,7 +94,7 @@ export function SearchDialog() {
         <span className="ml-1.5 sr-only sm:not-sr-only">{t("title")}</span>
       </Button>
 
-      <DialogContent className="sm:max-w-lg bg-popover/80 backdrop-blur-xl">
+      <DialogContent className="sm:max-w-lg bg-background/95 backdrop-blur-xl">
         <DialogHeader>
           <DialogTitle className="sr-only">{t("title")}</DialogTitle>
         </DialogHeader>
