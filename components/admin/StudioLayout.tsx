@@ -24,6 +24,7 @@ export function StudioLayout({ email, children }: StudioLayoutProps) {
     { href: "/admin/tags", label: t("connections"), icon: "∿" },
     { href: "/admin/photos", label: t("gallery"), icon: "◈" },
     { href: "/admin/comments", label: t("responses"), icon: "◉" },
+    { href: "/admin/analytics", label: t("analytics"), icon: "◐" },
   ]
 
   const isActive = (href: string) => {

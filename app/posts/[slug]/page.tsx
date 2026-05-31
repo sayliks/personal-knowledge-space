@@ -142,7 +142,7 @@ export default async function PostPage({
 
       <ArticleToc />
 
-      <div className="mx-auto max-w-[728px] px-5 pb-16 sm:px-6">
+      <div className="mx-auto max-w-[728px] px-5 pb-8 sm:px-6">
         <div className="mb-9 h-px bg-gradient-to-r from-transparent via-border/28 to-transparent" />
         {post.content && <MarkdownRenderer content={post.content} />}
       </div>

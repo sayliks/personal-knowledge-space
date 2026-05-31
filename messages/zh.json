@@ -116,7 +116,20 @@
     "write": "撰写",
     "preview": "预览",
     "markdownPlaceholder": "使用 Markdown 撰写文章...",
-    "nothingToPreview": "暂无内容可预览。"
+    "nothingToPreview": "暂无内容可预览。",
+    "analytics": "数据分析",
+    "totalViews": "总访问量",
+    "uniqueVisitors": "独立访客",
+    "dailyViews": "每日访问",
+    "topPages": "热门页面",
+    "recentVisits": "最近访问",
+    "views": "次访问",
+    "time": "时间",
+    "path": "路径",
+    "ip": "IP地址",
+    "userAgent": "用户代理",
+    "referer": "来源",
+    "last7Days": "最近7天"
   },
   "footer": {
     "copyright": "Powered by Next.js"
@@ -145,7 +158,8 @@
   "posts": {
     "title": "写作",
     "noPosts": "还没有笔记",
-    "gallery": "相册"
+    "gallery": "相册",
+    "viewAll": "查看全部 →"
   },
   "home": {
     "siteTitle": "sayliks's Corner",
@@ -238,6 +252,7 @@
     "saving": "保存中...",
     "responses": "评论",
     "backToGarden": "返回笔记",
+    "analytics": "数据分析",
     "welcome": "欢迎回来",
     "gardenOverview": "笔记概览",
     "writings": "篇写作",

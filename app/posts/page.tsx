@@ -31,10 +31,10 @@ export default async function PostsPage({
   const tCommon = await getTranslations("common")
   const { page: pageParam } = await searchParams
   const page = Math.max(1, parseInt(pageParam ?? "1", 10) || 1)
-  const { posts, totalPages } = await getPublishedPosts({ page, pageSize: 40 })
+  const { posts, totalPages } = await getPublishedPosts({ page, pageSize: 100 })
 
   return (
-    <div className="mx-auto max-w-2xl px-5 sm:px-6">
+    <div className="mx-auto max-w-[908px] px-5 sm:px-6">
       <header className="pt-14 pb-8 sm:pt-20">
         <h1 className="font-mono text-xs lowercase tracking-wide text-muted-foreground/50">
           {t("title")}
@@ -50,24 +50,24 @@ export default async function PostsPage({
               <li key={post.id} className="group">
                 <Link
                   href={`/posts/${post.slug}`}
-                  className="-mx-2 flex gap-4 rounded px-2 py-1.5 transition-colors hover:bg-muted/40"
+                  className="-mx-2 grid grid-cols-[7.5rem_minmax(0,1fr)] gap-x-4 rounded px-2 py-1.5 transition-colors hover:bg-muted/40 sm:grid-cols-[7.5rem_minmax(0,1fr)_auto_auto]"
                 >
                   <time
                     dateTime={post.publishedAt?.toISOString()}
-                    className="shrink-0 pt-0.5 font-mono text-xs tabular-nums text-muted-foreground/40"
+                    className="pt-0.5 font-mono text-xs tabular-nums text-muted-foreground/40"
                   >
                     {noteDate(post.publishedAt)}
                   </time>
-                  <span className="flex-1 text-sm leading-snug text-foreground/85 decoration-border underline-offset-4 group-hover:text-foreground group-hover:underline">
+                  <span className="text-sm leading-snug text-foreground/85 decoration-border underline-offset-4 group-hover:text-foreground group-hover:underline">
                     {post.title}
                   </span>
                   {isPostRevisited(post) && (
-                    <span className="shrink-0 self-start pt-0.5 font-mono text-[11px] text-muted-foreground/30">
+                    <span className="col-start-2 self-start pt-0.5 font-mono text-[11px] text-muted-foreground/30 sm:col-start-auto">
                       {tCommon("tended")} {formatDateShort(post.updatedAt)}
                     </span>
                   )}
                   {post.category && (
-                    <span className="shrink-0 self-start pt-0.5 font-mono text-[11px] text-muted-foreground/35">
+                    <span className="col-start-2 self-start pt-0.5 font-mono text-[11px] text-muted-foreground/35 sm:col-start-auto">
                       {post.category.title}
                     </span>
                   )}

@@ -114,7 +114,20 @@
     "write": "Write",
     "preview": "Preview",
     "markdownPlaceholder": "Write your post in Markdown...",
-    "nothingToPreview": "Nothing to preview."
+    "nothingToPreview": "Nothing to preview.",
+    "analytics": "Analytics",
+    "totalViews": "Total Views",
+    "uniqueVisitors": "Unique Visitors",
+    "dailyViews": "Daily Views",
+    "topPages": "Top Pages",
+    "recentVisits": "Recent Visits",
+    "views": "views",
+    "time": "Time",
+    "path": "Path",
+    "ip": "IP",
+    "userAgent": "User Agent",
+    "referer": "Referer",
+    "last7Days": "Last 7 days"
   },
   "footer": {
     "copyright": "Powered by Next.js"
@@ -143,7 +156,8 @@
   "posts": {
     "title": "Writing",
     "noPosts": "No notes yet",
-    "gallery": "gallery"
+    "gallery": "gallery",
+    "viewAll": "view all →"
   },
   "home": {
     "siteTitle": "sayliks's Corner",
@@ -236,6 +250,7 @@
     "saving": "Saving...",
     "responses": "Comments",
     "backToGarden": "Back to garden",
+    "analytics": "Analytics",
     "welcome": "Welcome back",
     "welcomeMessage": "This is your creative space — where ideas grow, connections form, and thoughts take shape.",
     "currentlyLabel": "Currently",

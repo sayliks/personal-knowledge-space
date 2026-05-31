@@ -199,3 +199,19 @@ model PhotoTag {
   @@id([photoId, tagId])
   @@index([tagId])
 }
+
+model PageView {
+  id        String   @id @default(cuid())
+  path      String
+  ip        String?
+  userAgent String?
+  referer   String?
+  country   String?
+  city      String?
+
+  createdAt DateTime @default(now())
+
+  @@index([createdAt(sort: Desc)])
+  @@index([path, createdAt(sort: Desc)])
+  @@index([ip, createdAt(sort: Desc)])
+}
