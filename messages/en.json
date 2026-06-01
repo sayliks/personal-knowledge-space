@@ -120,12 +120,7 @@
     "uniqueVisitors": "Unique Visitors",
     "dailyViews": "Daily Views",
     "recentVisits": "Recent Visits",
-    "time": "Time",
-    "path": "Path",
     "ip": "IP",
-    "location": "Location",
-    "userAgent": "User Agent",
-    "referer": "Referer",
     "last7Days": "Last 7 days"
   },
   "footer": {

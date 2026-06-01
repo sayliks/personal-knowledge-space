@@ -3,20 +3,6 @@ import { getAnalyticsStats, getVisitorsByDay } from "@/lib/analytics"
 
 export const dynamic = "force-dynamic"
 
-function formatDate(date: Date) {
-  return date.toLocaleDateString("en-CA", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit"
-  })
-}
-
-function formatLocation(city: string | null, country: string | null) {
-  return [city, country].filter(Boolean).join(", ") || "-"
-}
-
 export default async function AnalyticsPage() {
   const t = await getTranslations("admin")
   const stats = await getAnalyticsStats(7)
@@ -83,34 +69,14 @@ export default async function AnalyticsPage() {
           <table className="w-full">
             <thead>
               <tr className="border-b border-white/45 bg-white/20 dark:border-white/10 dark:bg-white/[0.025]">
-                <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground">{t("time")}</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground">{t("path")}</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground">{t("ip")}</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground">{t("location")}</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground">{t("userAgent")}</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground">{t("referer")}</th>
               </tr>
             </thead>
             <tbody>
               {stats.recentVisits.map((visit) => (
                 <tr key={visit.id} className="border-b border-white/35 transition-colors last:border-0 hover:bg-white/28 dark:border-white/10 dark:hover:bg-white/[0.045]">
-                  <td className="px-4 py-3 text-sm text-muted-foreground">
-                    {formatDate(visit.createdAt)}
-                  </td>
-                  <td className="px-4 py-3 text-sm font-mono max-w-xs truncate">
-                    {visit.path}
-                  </td>
                   <td className="px-4 py-3 text-sm font-mono">
                     {visit.ip || "-"}
-                  </td>
-                  <td className="px-4 py-3 text-sm">
-                    {formatLocation(visit.city, visit.country)}
-                  </td>
-                  <td className="px-4 py-3 text-sm max-w-xs truncate">
-                    {visit.userAgent || "-"}
-                  </td>
-                  <td className="px-4 py-3 text-sm max-w-xs truncate">
-                    {visit.referer || "-"}
                   </td>
                 </tr>
               ))}

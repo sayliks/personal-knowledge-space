@@ -20,6 +20,7 @@ export async function getAnalyticsStats(days = 7) {
     // Recent visits
     prisma.pageView.findMany({
       where: { createdAt: { gte: startDate } },
+      select: { id: true, ip: true },
       orderBy: { createdAt: "desc" },
       take: 50,
     }),
