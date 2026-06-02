@@ -128,15 +128,28 @@
   }
   body {
     @apply bg-background text-foreground;
+    background-color: var(--background);
+    background-image:
+      linear-gradient(to right, oklch(0 0 0 / 4%) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(0 0 0 / 3%) 1px, transparent 1px);
+    background-attachment: fixed;
+    background-position: center top;
+    background-repeat: repeat;
+    background-size: 32px 32px;
     font-weight: 450;
   }
 
   .dark body {
-    background:
+    background-color: var(--background);
+    background-image:
+      linear-gradient(to right, oklch(1 0 0 / 5%) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(1 0 0 / 4%) 1px, transparent 1px),
       radial-gradient(circle at 18% 4%, oklch(0.24 0.065 292 / 12%), transparent 32rem),
       radial-gradient(circle at 82% 14%, oklch(0.24 0.06 225 / 9%), transparent 34rem),
       linear-gradient(180deg, oklch(0.105 0.016 260), var(--background) 34rem);
     background-attachment: fixed;
+    background-position: center top, center top, center top, center top, center top;
+    background-size: 32px 32px, 32px 32px, auto, auto, auto;
   }
   html {
     @apply font-sans;
