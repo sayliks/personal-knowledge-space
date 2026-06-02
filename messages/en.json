@@ -144,7 +144,10 @@
     "quotes": "Quotes",
     "noQuotes": "No quotes yet",
     "gallery": "gallery",
-    "viewAll": "view all →"
+    "viewAll": "view all →",
+    "loadMore": "load more",
+    "loadingMore": "loading...",
+    "allLoaded": "all shown"
   },
   "home": {
     "siteTitle": "sayliks's Corner",

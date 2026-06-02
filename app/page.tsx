@@ -3,14 +3,14 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { cookies } from "next/headers"
 import { SayliksSplash } from "./SayliksSplash"
-import { isPostRevisited } from "@/lib/posts/revision-status"
-import { getHomeQuotes, getPublishedPosts, getPublishedPhotos } from "@/lib/queries"
-import { formatDateShort } from "@/lib/utils"
+import { getPublishedPosts, getPublishedPhotos, getPublishedQuotes } from "@/lib/queries"
 import { PhotoWall } from "@/components/blog/PhotoWall"
 import { DailyQuote } from "@/components/blog/DailyQuote"
-import { QuoteContent } from "@/components/blog/QuoteContent"
+import { HomePostFeed } from "@/components/blog/HomePostFeed"
+import { HomeQuoteFeed } from "@/components/blog/HomeQuoteFeed"
 
 export const dynamic = "force-dynamic"
+const HOME_FEED_PAGE_SIZE = 6
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("home")
@@ -21,24 +21,22 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-function noteDate(d: Date | null) {
-  if (!d) return "····"
-  return d
-    .toLocaleDateString("en-CA", { year: "numeric", month: "2-digit", day: "2-digit" })
-    .replace(/-/g, ".")
-}
-
 export default async function HomePage() {
   const tPosts = await getTranslations("posts")
   const tCommon = await getTranslations("common")
   const cookieStore = await cookies()
   const shouldPlayIntro = cookieStore.get("sayliks_intro_seen")?.value !== "1"
-  const [{ posts }, photos, quotes] = await Promise.all([
-    getPublishedPosts({ page: 1, pageSize: 20 }),
+  const [postsResult, photos, quotesResult] = await Promise.all([
+    getPublishedPosts({ page: 1, pageSize: HOME_FEED_PAGE_SIZE }),
     getPublishedPhotos(),
-    getHomeQuotes(6),
+    getPublishedQuotes({ page: 1, pageSize: HOME_FEED_PAGE_SIZE }),
   ])
   const displayPhotos = photos.slice(0, 16)
+  const feedLabels = {
+    loadMore: tPosts("loadMore"),
+    loadingMore: tPosts("loadingMore"),
+    allLoaded: tPosts("allLoaded"),
+  }
 
   return (
     <>
@@ -58,26 +56,22 @@ export default async function HomePage() {
           </header>
 
           <div className="border-t border-border/40 pt-6">
-            {quotes.length === 0 ? (
-              <p className="text-sm italic text-muted-foreground/50">{tPosts("noQuotes")}</p>
-            ) : (
-              <ul className="space-y-3">
-                {quotes.map((quote) => (
-                  <li
-                    key={quote.id}
-                    className="grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-3 sm:grid-cols-[7.5rem_minmax(0,1fr)] sm:gap-x-4"
-                  >
-                    <time
-                      dateTime={quote.publishedAt?.toISOString()}
-                      className="pt-1 font-mono text-xs tabular-nums text-muted-foreground/60 sm:text-sm"
-                    >
-                      {noteDate(quote.publishedAt ?? quote.createdAt)}
-                    </time>
-                    <QuoteContent content={quote.content ?? ""} />
-                  </li>
-                ))}
-              </ul>
-            )}
+            <HomeQuoteFeed
+              initialQuotes={quotesResult.quotes.map((quote) => ({
+                id: quote.id,
+                title: quote.title,
+                content: quote.content,
+                publishedAt: quote.publishedAt?.toISOString() ?? null,
+                createdAt: quote.createdAt.toISOString(),
+                updatedAt: quote.updatedAt.toISOString(),
+              }))}
+              pageSize={HOME_FEED_PAGE_SIZE}
+              total={quotesResult.total}
+              labels={{
+                noItems: tPosts("noQuotes"),
+                ...feedLabels,
+              }}
+            />
           </div>
         </section>
 
@@ -99,43 +93,29 @@ export default async function HomePage() {
           </header>
 
           <div className="blog-panel-list">
-            {posts.length === 0 ? (
-              <p className="text-sm italic text-muted-foreground/50">{tPosts("noPosts")}</p>
-            ) : (
-              <ul>
-                {posts.map((post) => (
-                  <li
-                    key={post.id}
-                    className="blog-post-item group"
-                  >
-                    <Link
-                      href={`/posts/${post.slug}`}
-                      className="blog-post-link grid grid-cols-[5.5rem_minmax(0,1fr)] gap-x-3 rounded px-2 py-2.5 sm:grid-cols-[7.5rem_minmax(0,1fr)_auto_auto] sm:gap-x-4"
-                    >
-                      <time
-                        dateTime={post.publishedAt?.toISOString()}
-                        className="pt-0.5 font-mono text-xs tabular-nums text-muted-foreground/60 sm:text-sm"
-                      >
-                        {noteDate(post.publishedAt)}
-                      </time>
-                      <span className="text-base leading-snug text-foreground font-medium decoration-border underline-offset-4 group-hover:underline">
-                        {post.title}
-                      </span>
-                      {isPostRevisited(post) && (
-                        <span className="col-start-2 self-start pt-0.5 font-mono text-xs text-muted-foreground/50 sm:col-start-auto">
-                          {tCommon("tended")} {formatDateShort(post.updatedAt)}
-                        </span>
-                      )}
-                      {post.category && (
-                        <span className="col-start-2 self-start pt-0.5 font-mono text-xs text-muted-foreground/55 sm:col-start-auto">
-                          {post.category.title}
-                        </span>
-                      )}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
+            <HomePostFeed
+              initialPosts={postsResult.posts.map((post) => ({
+                id: post.id,
+                title: post.title,
+                slug: post.slug,
+                summary: post.summary,
+                coverImage: post.coverImage,
+                publishedAt: post.publishedAt?.toISOString() ?? null,
+                updatedAt: post.updatedAt.toISOString(),
+                category: post.category
+                  ? {
+                      title: post.category.title,
+                    }
+                  : null,
+              }))}
+              pageSize={HOME_FEED_PAGE_SIZE}
+              total={postsResult.total}
+              labels={{
+                noItems: tPosts("noPosts"),
+                tended: tCommon("tended"),
+                ...feedLabels,
+              }}
+            />
           </div>
         </section>
 
