@@ -3,7 +3,6 @@
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 import { createCommentSchema } from "@/lib/validations"
-import { moderateComment } from "@/lib/moderation"
 import { revalidatePath } from "next/cache"
 
 export type ActionResult<T = void> =
@@ -43,21 +42,6 @@ export async function createComment(formData: FormData): Promise<ActionResult> {
 
     const userId = session?.user?.id
 
-    // Trust signal: how old is the commenter's account (logged-in users only).
-    let accountAgeDays: number | null = null
-    if (userId) {
-      const u = await prisma.user.findUnique({
-        where: { id: userId },
-        select: { createdAt: true },
-      })
-      if (u) {
-        accountAgeDays = Math.floor((Date.now() - u.createdAt.getTime()) / 86_400_000)
-      }
-    }
-
-    // Advisory moderation — never throws; null/failure -> flag-for-review.
-    const outcome = await moderateComment(content, accountAgeDays, userId ?? null)
-
     await prisma.comment.create({
       data: {
         content,
@@ -67,11 +51,6 @@ export async function createComment(formData: FormData): Promise<ActionResult> {
         documentId: postId,
         parentId: parentId || null,
         approved: false,
-        moderationLabel: outcome.label,
-        moderationScore: outcome.score,
-        moderationReason: outcome.reason,
-        moderationAction: outcome.action,
-        moderatedAt: new Date(),
       },
     })
 

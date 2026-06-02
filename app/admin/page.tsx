@@ -9,9 +9,9 @@ export default async function StudioDashboard() {
     await Promise.all([getStudioStats(), getRecentPosts(5)])
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-12 animate-entrance">
       {/* Header */}
-      <header>
+      <header className="animate-entrance">
         <h1 className="text-2xl font-medium mb-2">
           {t("welcome")}
         </h1>
@@ -26,7 +26,7 @@ export default async function StudioDashboard() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
           <Link
             href="/admin/quotes"
-            className="group block space-y-1 hover:translate-x-0.5 transition-transform"
+            className="group block space-y-1 hover:translate-x-0.5 transition-transform card-interactive animate-entrance"
           >
             <div className="text-2xl font-medium text-foreground/80 group-hover:text-foreground transition-colors">
               {quoteCount}
@@ -38,7 +38,7 @@ export default async function StudioDashboard() {
 
           <Link
             href="/admin/posts"
-            className="group block space-y-1 hover:translate-x-0.5 transition-transform"
+            className="group block space-y-1 hover:translate-x-0.5 transition-transform card-interactive animate-entrance"
           >
             <div className="text-2xl font-medium text-foreground/80 group-hover:text-foreground transition-colors">
               {postCount}
@@ -50,7 +50,7 @@ export default async function StudioDashboard() {
 
           <Link
             href="/admin/categories"
-            className="group block space-y-1 hover:translate-x-0.5 transition-transform"
+            className="group block space-y-1 hover:translate-x-0.5 transition-transform card-interactive animate-entrance"
           >
             <div className="text-2xl font-medium text-foreground/80 group-hover:text-foreground transition-colors">
               {categoryCount}
@@ -62,7 +62,7 @@ export default async function StudioDashboard() {
 
           <Link
             href="/admin/tags"
-            className="group block space-y-1 hover:translate-x-0.5 transition-transform"
+            className="group block space-y-1 hover:translate-x-0.5 transition-transform card-interactive animate-entrance"
           >
             <div className="text-2xl font-medium text-foreground/80 group-hover:text-foreground transition-colors">
               {tagCount}
@@ -74,7 +74,7 @@ export default async function StudioDashboard() {
 
           <Link
             href="/admin/comments"
-            className="group block space-y-1 hover:translate-x-0.5 transition-transform"
+            className="group block space-y-1 hover:translate-x-0.5 transition-transform card-interactive animate-entrance"
           >
             <div className="text-2xl font-medium text-foreground/80 group-hover:text-foreground transition-colors">
               {pendingComments}
@@ -93,11 +93,12 @@ export default async function StudioDashboard() {
         </h2>
 
         <div className="space-y-4">
-          {recentPosts.map((post) => (
+          {recentPosts.map((post, index) => (
             <Link
               key={post.id}
               href={`/admin/posts/${post.id}/edit`}
-              className="group block"
+              className="group block card-interactive animate-entrance"
+              style={{ animationDelay: `${index * 60}ms` }}
             >
               <div className="flex items-baseline gap-3">
                 <time className="text-xs text-muted-foreground shrink-0 w-16">
@@ -135,7 +136,7 @@ export default async function StudioDashboard() {
         <div className="flex gap-3">
           <Link
             href="/admin/posts/new"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-muted hover:bg-muted/80 rounded text-sm transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-muted hover:bg-muted/80 rounded text-sm transition-colors card-interactive animate-entrance"
           >
             <span>+</span>
             <span>{t("newWriting")}</span>
@@ -143,7 +144,7 @@ export default async function StudioDashboard() {
 
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-4 py-2 border border-border/40 hover:border-border rounded text-sm text-muted-foreground hover:text-foreground transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 border border-border/40 hover:border-border rounded text-sm text-muted-foreground hover:text-foreground transition-colors card-interactive animate-entrance"
           >
             <span>→</span>
             <span>{t("viewGarden")}</span>

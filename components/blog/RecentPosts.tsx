@@ -16,10 +16,10 @@ export async function RecentPosts() {
       </h2>
       <ul className="space-y-1">
         {posts.map((post) => (
-          <li key={post.id}>
+          <li key={post.id} className="animate-entrance">
             <Link
               href={`/posts/${post.slug}`}
-              className="inline-flex items-baseline gap-2 group"
+              className="inline-flex items-baseline gap-2 group card-interactive"
             >
               <span className="text-muted-foreground text-sm tabular-nums shrink-0">
                 {formatDate(post.publishedAt ?? post.createdAt)}

@@ -9,9 +9,9 @@ export default async function StudioConnectionsPage() {
   const tags = await getAllTags()
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 animate-entrance">
       {/* Header */}
-      <header>
+      <header className="animate-entrance">
         <h1 className="text-2xl font-medium mb-2">
           {t("tagsTitle")}
         </h1>
@@ -37,10 +37,11 @@ export default async function StudioConnectionsPage() {
           </p>
         ) : (
           <div className="flex flex-wrap gap-x-6 gap-y-4">
-            {tags.map((tag) => (
+            {tags.map((tag, index) => (
               <div
                 key={tag.id}
-                className="group flex items-baseline gap-2"
+                className="group flex items-baseline gap-2 animate-entrance card-interactive"
+                style={{ animationDelay: `${index * 45}ms` }}
               >
                 <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">
                   #{tag.name}

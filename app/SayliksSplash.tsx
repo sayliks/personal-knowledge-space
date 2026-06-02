@@ -31,7 +31,7 @@ export function SayliksSplash({ shouldPlay }: SayliksSplashProps) {
   }
 
   return (
-    <div className={`${styles.home} sayliks-intro-home`}>
+    <div className={`${styles.home} sayliks-intro-home animate-entrance`}>
       <object
         aria-label="sayliks"
         className={styles.title}

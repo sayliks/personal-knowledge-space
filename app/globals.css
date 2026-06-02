@@ -818,6 +818,54 @@ html.dark .kb-index-row[data-active="true"] .knowledge-module-label {
   transform: rotate(1.5deg);
 }
 
+/* --- Entrance & micro-interaction animations --- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px) scale(0.995); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes photoFloat {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-4px) scale(1.02); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@keyframes imageFade {
+  from { opacity: 0; transform: translateY(6px) scale(0.998); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.animate-entrance {
+  animation: fadeUp 560ms cubic-bezier(.2,.9,.25,1) both;
+  will-change: transform, opacity;
+}
+
+.animate-photo-float {
+  animation: photoFloat 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-content-fade img,
+.prose img {
+  animation: imageFade 700ms ease both;
+  will-change: opacity, transform;
+}
+
+/* Subtle hover lift for interactive cards */
+.card-interactive {
+  transition: transform 220ms cubic-bezier(.22,.9,.25,1), box-shadow 220ms;
+  transform-origin: center;
+}
+.card-interactive:hover {
+  transform: translateY(-6px) scale(1.005);
+  box-shadow: 0 12px 30px rgba(8,10,20,0.12);
+}
+
+/* Lightbox open animation */
+.lightbox-enter {
+  animation: fadeUp 320ms cubic-bezier(.2,.9,.25,1) both;
+}
+
 .quote-word-stand {
   color: oklch(0.22 0.16 286);
   font-family:

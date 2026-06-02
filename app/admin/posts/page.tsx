@@ -8,9 +8,9 @@ export default async function StudioWritingPage() {
   const posts = await getAllPosts()
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 animate-entrance">
       {/* Header */}
-      <header className="flex items-start justify-between gap-6">
+      <header className="flex items-start justify-between gap-6 animate-entrance">
         <div>
           <h1 className="text-2xl font-medium mb-2">
             {t("writingTitle")}
@@ -21,7 +21,7 @@ export default async function StudioWritingPage() {
         </div>
         <Link
           href="/admin/posts/new"
-          className="shrink-0 inline-flex items-center gap-2 px-4 py-2 bg-muted hover:bg-muted/80 rounded text-sm transition-colors"
+          className="shrink-0 inline-flex items-center gap-2 px-4 py-2 bg-muted hover:bg-muted/80 rounded text-sm transition-colors card-interactive"
         >
           <span>+</span>
           <span>{t("newWriting")}</span>
@@ -36,8 +36,8 @@ export default async function StudioWritingPage() {
           </p>
         ) : (
           <div className="space-y-6">
-            {posts.map((post) => (
-              <article key={post.id} className="group flex items-baseline gap-4">
+            {posts.map((post, index) => (
+              <article key={post.id} className="group flex items-baseline gap-4 animate-entrance card-interactive" style={{ animationDelay: `${index * 60}ms` }}>
                 {/* Date */}
                 <time className="text-xs text-muted-foreground shrink-0 w-20">
                   {(post.publishedAt ?? post.createdAt)

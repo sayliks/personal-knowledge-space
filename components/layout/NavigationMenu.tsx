@@ -33,7 +33,7 @@ export function NavigationMenu({ labels }: NavigationMenuProps) {
     <DialogPrimitive.Root open={open} onOpenChange={setOpen}>
       <nav
         aria-label={t("navigation")}
-        className="hidden items-center gap-1 md:flex"
+        className="hidden items-center gap-1 md:flex animate-entrance"
       >
         {desktopLinks.map((link) => {
           const active = isActive(link.href)
@@ -43,7 +43,7 @@ export function NavigationMenu({ labels }: NavigationMenuProps) {
               key={link.href}
               href={link.href}
               aria-current={active ? "page" : undefined}
-              className="rounded-md px-2.5 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring aria-[current=page]:text-foreground"
+              className="rounded-md px-2.5 py-1.5 text-sm text-muted-foreground transition-all hover:text-foreground hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring aria-[current=page]:text-foreground"
             >
               {labels[link.key]}
             </Link>
@@ -53,15 +53,15 @@ export function NavigationMenu({ labels }: NavigationMenuProps) {
 
       <DialogPrimitive.Trigger
         aria-label={t("menu")}
-        className="inline-flex size-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring md:hidden"
+        className="inline-flex size-8 items-center justify-center rounded-md text-muted-foreground transition-all hover:text-foreground hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring md:hidden"
       >
-        <Menu className="size-[18px]" />
+          <Menu className="size-4.5" />
       </DialogPrimitive.Trigger>
 
       <DialogPrimitive.Portal>
         <DialogPrimitive.Backdrop className="fixed inset-0 z-50 bg-foreground/10 data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0 dark:bg-black/20 md:hidden" />
-        <DialogPrimitive.Popup className="navigation-overlay fixed inset-0 z-50 flex flex-col px-5 pb-8 pt-3.5 outline-none data-open:animate-in data-open:fade-in-0 data-open:slide-in-from-top-1 data-closed:animate-out data-closed:fade-out-0 data-closed:slide-out-to-top-1 sm:px-6 md:hidden">
-          <div className="mx-auto flex w-full max-w-[760px] items-center justify-between">
+        <DialogPrimitive.Popup className="navigation-overlay fixed inset-0 z-50 flex flex-col px-5 pb-8 pt-3.5 outline-none animate-entrance data-open:animate-in data-open:fade-in-0 data-open:slide-in-from-top-1 data-closed:animate-out data-closed:fade-out-0 data-closed:slide-out-to-top-1 sm:px-6 md:hidden">
+          <div className="mx-auto flex w-full max-w-190 items-center justify-between">
             <DialogPrimitive.Title className="font-mono text-[11px] uppercase tracking-[0.16em] text-foreground/42 dark:text-foreground/46">
               {t("navigation")}
             </DialogPrimitive.Title>
@@ -69,11 +69,11 @@ export function NavigationMenu({ labels }: NavigationMenuProps) {
               aria-label={t("closeMenu")}
               className="inline-flex size-8 items-center justify-center rounded-md text-foreground/52 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             >
-              <X className="size-[18px]" />
+              <X className="size-4.5" />
             </DialogPrimitive.Close>
           </div>
 
-          <div className="mx-auto flex w-full max-w-[760px] flex-1 flex-col justify-center py-8 sm:py-12">
+          <div className="mx-auto flex w-full max-w-190 flex-1 flex-col justify-center py-8 sm:py-12">
             <nav className="flex flex-col gap-1 sm:gap-2">
               {links.map((link) => {
                 const active = isActive(link.href)

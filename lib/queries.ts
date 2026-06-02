@@ -56,22 +56,29 @@ export async function getHomePosts(limit = 14) {
 }
 
 export async function getHomeQuotes(limit = 6) {
-  return prisma.document.findMany({
-    where: {
-      type: "NOTE",
-      published: true,
-      publishedAt: { lte: new Date() },
-    },
-    select: {
-      id: true,
-      title: true,
-      content: true,
-      publishedAt: true,
-      createdAt: true,
-      updatedAt: true,
-    },
-    orderBy: { publishedAt: "desc" },
-    take: limit,
+  return withTransientRetry("home quotes", () =>
+    prisma.document.findMany({
+      where: {
+        type: "NOTE",
+        published: true,
+        publishedAt: { lte: new Date() },
+      },
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        publishedAt: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+      orderBy: { publishedAt: "desc" },
+      take: limit,
+    }),
+  ).catch((error) => {
+    if (process.env.NODE_ENV !== "production") {
+      console.warn("Queries: home quotes fell back after failure", error);
+    }
+    return [];
   });
 }
 
@@ -123,9 +130,16 @@ export async function getPublishedPosts(params: {
 }
 
 export async function getPostBySlug(slug: string) {
-  return prisma.document.findUnique({
-    where: { slug, type: "POST" },
-    include: DOCUMENT_INCLUDES,
+  return withTransientRetry("post by slug", () =>
+    prisma.document.findUnique({
+      where: { slug, type: "POST" },
+      include: DOCUMENT_INCLUDES,
+    }),
+  ).catch((error) => {
+    if (process.env.NODE_ENV !== "production") {
+      console.warn("Queries: post by slug fell back after failure", error);
+    }
+    return null;
   });
 }
 
@@ -155,9 +169,16 @@ export async function getAllQuotes() {
 }
 
 export async function getPostById(id: string) {
-  return prisma.document.findUnique({
-    where: { id, type: "POST" },
-    include: { ...DOCUMENT_INCLUDES, comments: true },
+  return withTransientRetry("post by id", () =>
+    prisma.document.findUnique({
+      where: { id, type: "POST" },
+      include: { ...DOCUMENT_INCLUDES, comments: true },
+    }),
+  ).catch((error) => {
+    if (process.env.NODE_ENV !== "production") {
+      console.warn("Queries: post by id fell back after failure", error);
+    }
+    return null;
   });
 }
 
@@ -237,17 +258,24 @@ export async function getBacklinkCandidates(params: {
   title: string
   slug: string
 }) {
-  return prisma.document.findMany({
-    where: {
-      type: "POST",
-      published: true,
-      id: { not: params.postId },
-      OR: [
-        { content: { contains: params.title, mode: "insensitive" } },
-        { content: { contains: `[[${params.slug}]]`, mode: "insensitive" } },
-      ],
-    },
-    select: { id: true, title: true, slug: true, summary: true, content: true },
+  return withTransientRetry("backlink candidates", () =>
+    prisma.document.findMany({
+      where: {
+        type: "POST",
+        published: true,
+        id: { not: params.postId },
+        OR: [
+          { content: { contains: params.title, mode: "insensitive" } },
+          { content: { contains: `[[${params.slug}]]`, mode: "insensitive" } },
+        ],
+      },
+      select: { id: true, title: true, slug: true, summary: true, content: true },
+    }),
+  ).catch((error) => {
+    if (process.env.NODE_ENV !== "production") {
+      console.warn("Queries: backlink candidates fell back after failure", error);
+    }
+    return [];
   })
 }
 
@@ -349,17 +377,21 @@ export async function getSitemapEntries() {
 }
 
 export async function getPublishedPhotos() {
-  return await prisma.photo.findMany({
-    where: { published: true },
-    include: {
-      tags: {
-        include: { tag: true }
-      }
-    },
-    orderBy: [
-      { order: 'asc' },
-      { createdAt: 'desc' }
-    ]
+  return withTransientRetry("published photos", () =>
+    prisma.photo.findMany({
+      where: { published: true },
+      include: {
+        tags: {
+          include: { tag: true },
+        },
+      },
+      orderBy: [{ order: "asc" }, { createdAt: "desc" }],
+    }),
+  ).catch((error) => {
+    if (process.env.NODE_ENV !== "production") {
+      console.warn("Queries: published photos fell back after failure", error);
+    }
+    return [];
   });
 }
 

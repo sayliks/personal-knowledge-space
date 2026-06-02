@@ -119,7 +119,7 @@ function promoteCentralQuestion() {
 
 export function MarkdownRenderer({ content }: MarkdownRendererProps) {
   return (
-    <article className="prose prose-neutral dark:prose-invert article-prose max-w-none">
+    <article className="prose prose-neutral dark:prose-invert article-prose max-w-none animate-entrance animate-content-fade">
       <ReactMarkdown
         // remark-math must run before remark-rehype so $...$ / $$...$$ become
         // math nodes; wiki-link/gfm only touch text and don't conflict.
