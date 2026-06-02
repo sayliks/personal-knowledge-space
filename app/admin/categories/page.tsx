@@ -9,9 +9,9 @@ export default async function StudioPathsPage() {
   const categories = await getAllCategories()
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 animate-entrance">
       {/* Header */}
-      <header>
+      <header className="animate-entrance">
         <h1 className="text-2xl font-medium mb-2">
           {t("categoriesTitle")}
         </h1>
@@ -37,10 +37,11 @@ export default async function StudioPathsPage() {
           </p>
         ) : (
           <div className="space-y-4">
-            {categories.map((category) => (
+            {categories.map((category, index) => (
               <div
                 key={category.id}
-                className="group flex items-baseline justify-between gap-6"
+                className="group flex items-baseline justify-between gap-6 animate-entrance card-interactive"
+                style={{ animationDelay: `${index * 55}ms` }}
               >
                 <div className="flex items-baseline gap-3 min-w-0">
                   <h3 className="text-sm font-medium truncate group-hover:text-muted-foreground transition-colors">

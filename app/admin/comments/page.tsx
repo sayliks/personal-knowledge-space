@@ -10,12 +10,12 @@ export default async function AdminCommentsPage() {
   const comments = await getAllComments()
 
   return (
-    <div className="space-y-8">
-      <header>
+    <div className="space-y-8 animate-entrance">
+      <header className="animate-entrance">
         <h1 className="text-2xl font-medium">{t("comments")}</h1>
       </header>
 
-      <div className="border border-border/40 rounded">
+      <div className="border border-border/40 rounded animate-entrance">
         <table className="w-full">
           <thead>
             <tr className="border-b border-border/40 bg-muted/30">
@@ -35,8 +35,8 @@ export default async function AdminCommentsPage() {
                 </td>
               </tr>
             ) : (
-              comments.map((comment) => (
-                <tr key={comment.id} className="border-b border-border/40 last:border-0">
+              comments.map((comment, index) => (
+                <tr key={comment.id} className="border-b border-border/40 last:border-0 animate-entrance" style={{ animationDelay: `${index * 45}ms` }}>
                   <td className="px-4 py-3 text-sm">
                     <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
                       comment.approved
