@@ -25,7 +25,7 @@ than only what you've recently published.
   ordering, managed through the admin console.
 - **Search & topics** — full-text search and category/tag navigation for
   finding your way back to an idea.
-- **Comments with auth & moderation** — optional GitHub sign-in, admin approval
+- **Comments with auth & approval** — optional GitHub sign-in, admin approval
   flow, for discussion without turning the space into a social feed.
 - **Bilingual** — Chinese (default) and English via cookie-based locale
   switching, no URL prefix.
@@ -117,7 +117,7 @@ app/              # App Router pages, server actions, read-only API routes
     categories/   # category management
     tags/         # tag management
     photos/       # photo gallery management
-    comments/     # comment moderation
+    comments/     # comment approval
 components/       # UI — layout, blog (notes), admin
 lib/              # prisma, auth, queries, validations, wiki-link
 messages/         # i18n strings (zh.json, en.json)
@@ -143,7 +143,7 @@ A minimal, distraction-free interface for managing your knowledge space:
 - **Categories** — organize content into knowledge paths
 - **Tags** — create connections between ideas
 - **Gallery** — curate photos for the homepage
-- **Comments** — moderate and approve reader comments
+- **Comments** — review and approve reader comments
 
 ### Content Management
 - Full markdown support with syntax highlighting

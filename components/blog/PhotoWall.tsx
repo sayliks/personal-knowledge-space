@@ -21,7 +21,7 @@ export function PhotoWall({ photos }: PhotoWallProps) {
           <button
             key={photo.id}
             onClick={() => setSelectedPhoto(photo)}
-            className="relative aspect-square rounded-lg overflow-hidden border border-border/20 hover:opacity-90 transition-opacity group"
+            className="relative aspect-square rounded-lg overflow-hidden border border-border/20 hover:opacity-90 transition-opacity group card-interactive animate-photo-float"
           >
             <Image
               src={photo.imageUrl}
@@ -41,7 +41,7 @@ export function PhotoWall({ photos }: PhotoWallProps) {
       {/* Lightbox Modal */}
       {selectedPhoto && (
         <div
-          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 lightbox-enter"
           onClick={() => setSelectedPhoto(null)}
         >
           <button

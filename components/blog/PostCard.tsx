@@ -8,7 +8,7 @@ export function PostCard({ post }: { post: PostWithRelations }) {
   const tags = post.tags.map((pt) => pt.tag)
 
   return (
-    <article className="border-b pb-6 last:border-0">
+    <article className="border-b pb-6 last:border-0 animate-entrance card-interactive">
       <div className="space-y-2">
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           {post.publishedAt && (
