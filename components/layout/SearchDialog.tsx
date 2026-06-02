@@ -91,7 +91,7 @@ export function SearchDialog() {
         className="text-muted-foreground hover:text-foreground"
         aria-label={t("title")}
       >
-        <Search className="size-4" />
+        <Search className="size-4" suppressHydrationWarning />
       </Button>
 
       <DialogContent className="sm:max-w-lg bg-white dark:bg-popover/95 backdrop-blur-xl">
@@ -100,7 +100,7 @@ export function SearchDialog() {
         </DialogHeader>
 
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" suppressHydrationWarning />
           <input
             ref={inputRef}
             type="text"

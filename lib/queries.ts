@@ -7,8 +7,20 @@ const DOCUMENT_INCLUDES = {
   tags: { include: { tag: true } },
 } satisfies Prisma.DocumentInclude;
 
+const HOME_QUOTE_SELECT = {
+  id: true,
+  title: true,
+  content: true,
+  publishedAt: true,
+  createdAt: true,
+  updatedAt: true,
+} satisfies Prisma.DocumentSelect;
+
 export type PostWithRelations = Prisma.DocumentGetPayload<{
   include: typeof DOCUMENT_INCLUDES;
+}>;
+export type HomeQuote = Prisma.DocumentGetPayload<{
+  select: typeof HOME_QUOTE_SELECT;
 }>;
 
 function isTransientPrismaError(error: unknown): boolean {
@@ -61,31 +73,47 @@ export async function getHomePosts(limit = 14) {
   });
 }
 
-export async function getHomeQuotes(limit = 6) {
-  return withTransientRetry("home quotes", () =>
+export async function getPublishedQuotes(params: {
+  page?: number;
+  pageSize?: number;
+}) {
+  const { page = 1, pageSize = 6 } = params;
+  const where: Prisma.DocumentWhereInput = {
+    type: "NOTE",
+    published: true,
+    publishedAt: { lte: new Date() },
+  };
+
+  const quotes = await withTransientRetry("published quotes list", () =>
     prisma.document.findMany({
-      where: {
-        type: "NOTE",
-        published: true,
-        publishedAt: { lte: new Date() },
-      },
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        publishedAt: true,
-        createdAt: true,
-        updatedAt: true,
-      },
+      where,
+      select: HOME_QUOTE_SELECT,
       orderBy: { publishedAt: "desc" },
-      take: limit,
+      skip: (page - 1) * pageSize,
+      take: pageSize,
     }),
   ).catch((error) => {
     if (process.env.NODE_ENV !== "production") {
-      console.warn(`Queries: home quotes fell back after failure: ${transientErrorMessage(error)}`);
+      console.warn(`Queries: published quotes list fell back after failure: ${transientErrorMessage(error)}`);
     }
     return [];
   });
+
+  const total = await withTransientRetry("published quotes count", () => prisma.document.count({ where }))
+    .catch((error) => {
+      if (process.env.NODE_ENV !== "production") {
+        console.warn(`Queries: published quotes count fell back after failure: ${transientErrorMessage(error)}`);
+      }
+      return quotes.length;
+    });
+
+  return { quotes, total, page, pageSize, totalPages: Math.ceil(total / pageSize) };
+}
+
+export async function getHomeQuotes(limit = 6) {
+  const { quotes } = await getPublishedQuotes({ page: 1, pageSize: limit });
+
+  return quotes;
 }
 
 export async function getPublishedPosts(params: {

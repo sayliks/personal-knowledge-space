@@ -146,7 +146,10 @@
     "quotes": "片语",
     "noQuotes": "还没有片语",
     "gallery": "相册",
-    "viewAll": "查看全部 →"
+    "viewAll": "查看全部 →",
+    "loadMore": "继续加载",
+    "loadingMore": "加载中...",
+    "allLoaded": "已全部显示"
   },
   "home": {
     "siteTitle": "sayliks's Corner",

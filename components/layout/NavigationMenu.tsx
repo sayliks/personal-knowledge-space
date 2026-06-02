@@ -16,10 +16,7 @@ type NavigationMenuProps = {
 
 const links = [
   { href: "/about", key: "about" },
-  { href: "/search", key: "search" },
 ] as const
-
-const desktopLinks = links.filter((link) => link.key !== "search")
 
 export function NavigationMenu({ labels }: NavigationMenuProps) {
   const t = useTranslations("common")
@@ -35,7 +32,7 @@ export function NavigationMenu({ labels }: NavigationMenuProps) {
         aria-label={t("navigation")}
         className="hidden items-center gap-1 md:flex animate-entrance"
       >
-        {desktopLinks.map((link) => {
+        {links.map((link) => {
           const active = isActive(link.href)
 
           return (
@@ -55,7 +52,7 @@ export function NavigationMenu({ labels }: NavigationMenuProps) {
         aria-label={t("menu")}
         className="inline-flex size-8 items-center justify-center rounded-md text-muted-foreground transition-all hover:text-foreground hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring md:hidden"
       >
-          <Menu className="size-4.5" />
+          <Menu className="size-4.5" suppressHydrationWarning />
       </DialogPrimitive.Trigger>
 
       <DialogPrimitive.Portal>
@@ -69,7 +66,7 @@ export function NavigationMenu({ labels }: NavigationMenuProps) {
               aria-label={t("closeMenu")}
               className="inline-flex size-8 items-center justify-center rounded-md text-foreground/52 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             >
-              <X className="size-4.5" />
+              <X className="size-4.5" suppressHydrationWarning />
             </DialogPrimitive.Close>
           </div>
 
