@@ -20,6 +20,10 @@ function isTransientPrismaError(error: unknown): boolean {
   );
 }
 
+function transientErrorMessage(error: unknown) {
+  return error instanceof Error ? error.message : String(error);
+}
+
 async function withTransientRetry<T>(label: string, query: () => Promise<T>): Promise<T> {
   try {
     return await query();
@@ -27,7 +31,9 @@ async function withTransientRetry<T>(label: string, query: () => Promise<T>): Pr
     if (!isTransientPrismaError(error)) throw error;
 
     if (process.env.NODE_ENV !== "production") {
-      console.warn(`Queries: ${label} retrying after transient Prisma error`, error);
+      console.warn(
+        `Queries: ${label} retrying after transient Prisma error: ${transientErrorMessage(error)}`,
+      );
     }
 
     await new Promise((resolve) => setTimeout(resolve, 100));
@@ -76,7 +82,7 @@ export async function getHomeQuotes(limit = 6) {
     }),
   ).catch((error) => {
     if (process.env.NODE_ENV !== "production") {
-      console.warn("Queries: home quotes fell back after failure", error);
+      console.warn(`Queries: home quotes fell back after failure: ${transientErrorMessage(error)}`);
     }
     return [];
   });
@@ -113,7 +119,7 @@ export async function getPublishedPosts(params: {
     }),
   ).catch((error) => {
     if (process.env.NODE_ENV !== "production") {
-      console.warn("Queries: published posts list fell back after failure", error);
+      console.warn(`Queries: published posts list fell back after failure: ${transientErrorMessage(error)}`);
     }
     return [];
   });
@@ -121,7 +127,7 @@ export async function getPublishedPosts(params: {
   const total = await withTransientRetry("published posts count", () => prisma.document.count({ where }))
     .catch((error) => {
       if (process.env.NODE_ENV !== "production") {
-        console.warn("Queries: published posts count fell back after failure", error);
+        console.warn(`Queries: published posts count fell back after failure: ${transientErrorMessage(error)}`);
       }
       return posts.length;
     });
@@ -137,7 +143,7 @@ export async function getPostBySlug(slug: string) {
     }),
   ).catch((error) => {
     if (process.env.NODE_ENV !== "production") {
-      console.warn("Queries: post by slug fell back after failure", error);
+      console.warn(`Queries: post by slug fell back after failure: ${transientErrorMessage(error)}`);
     }
     return null;
   });
@@ -176,7 +182,7 @@ export async function getPostById(id: string) {
     }),
   ).catch((error) => {
     if (process.env.NODE_ENV !== "production") {
-      console.warn("Queries: post by id fell back after failure", error);
+      console.warn(`Queries: post by id fell back after failure: ${transientErrorMessage(error)}`);
     }
     return null;
   });
@@ -273,7 +279,7 @@ export async function getBacklinkCandidates(params: {
     }),
   ).catch((error) => {
     if (process.env.NODE_ENV !== "production") {
-      console.warn("Queries: backlink candidates fell back after failure", error);
+      console.warn(`Queries: backlink candidates fell back after failure: ${transientErrorMessage(error)}`);
     }
     return [];
   })
@@ -389,7 +395,7 @@ export async function getPublishedPhotos() {
     }),
   ).catch((error) => {
     if (process.env.NODE_ENV !== "production") {
-      console.warn("Queries: published photos fell back after failure", error);
+      console.warn(`Queries: published photos fell back after failure: ${transientErrorMessage(error)}`);
     }
     return [];
   });
