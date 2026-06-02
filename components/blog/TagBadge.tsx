@@ -4,7 +4,7 @@ export function TagBadge({ name, slug }: { name: string; slug: string }) {
   return (
     <Link
       href={`/tags/${slug}`}
-      className="inline-flex items-center rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground hover:bg-muted/80 transition-colors"
+      className="inline-flex items-center rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground hover:bg-muted/80 transition-colors card-interactive animate-entrance"
     >
       {name}
     </Link>

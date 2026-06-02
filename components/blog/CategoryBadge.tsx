@@ -10,7 +10,7 @@ export function CategoryBadge({
   return (
     <Link
       href={`/categories/${slug}`}
-      className="inline-flex items-center rounded-md border px-2 py-0.5 text-xs font-medium hover:bg-muted transition-colors"
+      className="inline-flex items-center rounded-md border px-2 py-0.5 text-xs font-medium hover:bg-muted transition-colors card-interactive animate-entrance"
     >
       {name}
     </Link>
