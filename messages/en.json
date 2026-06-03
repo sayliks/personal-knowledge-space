@@ -8,13 +8,11 @@
     "backToHome": "Back to Home",
     "tryAgain": "Try Again",
     "loading": "Loading...",
-    "toggleTheme": "Toggle theme",
     "siteTitle": "sayliks's Corner",
     "tended": "tended",
     "menu": "Menu",
     "closeMenu": "Close menu",
-    "navigation": "Navigation",
-    "appearance": "Appearance"
+    "navigation": "Navigation"
   },
   "about": {
     "title": "About",
