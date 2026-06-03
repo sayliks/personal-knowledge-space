@@ -39,7 +39,7 @@ npx prisma generate       # Runs automatically via `postinstall`
 - **UI**: shadcn/ui (`base-nova` style, neutral base color), Tailwind CSS v4
 - **Validation**: Zod 4
 - **i18n**: next-intl 4 (zh default, en)
-- **Theme**: next-themes (class strategy, `system` default)
+- **Theme**: single fixed warm-brown theme (no light/dark switching). The `dark` class is hardcoded on `<html>` in `app/layout.tsx`; `next-themes` has been removed. Theme tokens live in `app/globals.css` (`:root, .dark` share one brown palette anchored on `#2E1C0F`).
 - **Markdown**: react-markdown + remark/rehype plugins (incl. KaTeX math)
 - **Path alias**: `@/*` → project root
 

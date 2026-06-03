@@ -53,73 +53,43 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-:root {
-  --background: oklch(0.98 0.012 70);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(0.985 0.010 70);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(0.985 0.010 70);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.96 0.012 70);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.96 0.012 70);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.96 0.012 70);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.91 0.010 70);
-  --input: oklch(0.91 0.010 70);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0.008 70);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0.008 70);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0.006 70);
-  --sidebar-ring: oklch(0.708 0 0);
-}
-
+/* Single warm-brown theme (anchored on #2E1C0F). The site is always
+   dark-classed; :root and .dark carry identical values so there is one
+   look regardless of any class. */
+:root,
 .dark {
-  --background: oklch(0.095 0.014 260);
-  --foreground: oklch(0.955 0.006 260);
-  --card: oklch(0.13 0.016 260);
-  --card-foreground: oklch(0.94 0.006 260);
-  --popover: oklch(0.12 0.015 260);
-  --popover-foreground: oklch(0.94 0.006 260);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.72 0.025 260);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(0.9 0.02 260 / 11%);
-  --input: oklch(0.9 0.02 260 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --background: oklch(0.247 0.036 58);
+  --foreground: oklch(0.93 0.014 78);
+  --card: oklch(0.288 0.038 56);
+  --card-foreground: oklch(0.93 0.014 78);
+  --popover: oklch(0.275 0.038 56);
+  --popover-foreground: oklch(0.93 0.014 78);
+  --primary: oklch(0.92 0.02 80);
+  --primary-foreground: oklch(0.247 0.036 58);
+  --secondary: oklch(0.34 0.032 56);
+  --secondary-foreground: oklch(0.95 0.012 80);
+  --muted: oklch(0.34 0.032 56);
+  --muted-foreground: oklch(0.75 0.03 72);
+  --accent: oklch(0.34 0.032 56);
+  --accent-foreground: oklch(0.95 0.012 80);
+  --destructive: oklch(0.68 0.19 25);
+  --border: oklch(0.9 0.03 80 / 12%);
+  --input: oklch(0.9 0.03 80 / 15%);
+  --ring: oklch(0.62 0.05 66);
+  --chart-1: oklch(0.72 0.12 66);
+  --chart-2: oklch(0.66 0.10 50);
+  --chart-3: oklch(0.60 0.08 70);
+  --chart-4: oklch(0.50 0.06 60);
+  --chart-5: oklch(0.42 0.05 55);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.275 0.038 56);
+  --sidebar-foreground: oklch(0.93 0.014 78);
+  --sidebar-primary: oklch(0.72 0.12 66);
+  --sidebar-primary-foreground: oklch(0.20 0.025 58);
+  --sidebar-accent: oklch(0.34 0.032 56);
+  --sidebar-accent-foreground: oklch(0.95 0.012 80);
+  --sidebar-border: oklch(0.9 0.03 80 / 10%);
+  --sidebar-ring: oklch(0.62 0.05 66);
 }
 
 @layer base {
@@ -142,11 +112,11 @@
   .dark body {
     background-color: var(--background);
     background-image:
-      linear-gradient(to right, oklch(1 0 0 / 5%) 1px, transparent 1px),
-      linear-gradient(to bottom, oklch(1 0 0 / 4%) 1px, transparent 1px),
-      radial-gradient(circle at 18% 4%, oklch(0.24 0.065 292 / 12%), transparent 32rem),
-      radial-gradient(circle at 82% 14%, oklch(0.24 0.06 225 / 9%), transparent 34rem),
-      linear-gradient(180deg, oklch(0.105 0.016 260), var(--background) 34rem);
+      linear-gradient(to right, oklch(1 0 0 / 4.5%) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(1 0 0 / 3.5%) 1px, transparent 1px),
+      radial-gradient(circle at 18% 4%, oklch(0.46 0.08 70 / 16%), transparent 32rem),
+      radial-gradient(circle at 82% 14%, oklch(0.42 0.07 40 / 12%), transparent 34rem),
+      linear-gradient(180deg, oklch(0.21 0.03 56), var(--background) 34rem);
     background-attachment: fixed;
     background-position: center top, center top, center top, center top, center top;
     background-size: 32px 32px, 32px 32px, auto, auto, auto;
@@ -215,7 +185,7 @@
 }
 
 .dark .prose {
-  color: rgba(210, 222, 240, 0.84);
+  color: rgba(234, 224, 208, 0.86);
 }
 
 @media (min-width: 640px) {
@@ -550,22 +520,22 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: oklch(0.09 0.014 260);
+    background: oklch(0.20 0.03 56);
   }
 
   ::-webkit-scrollbar-thumb {
-    background: oklch(0.52 0.025 260 / 32%);
-    border: 3px solid oklch(0.09 0.014 260);
+    background: oklch(0.55 0.04 64 / 32%);
+    border: 3px solid oklch(0.20 0.03 56);
     border-radius: 999px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: oklch(0.62 0.025 260 / 42%);
+    background: oklch(0.62 0.045 64 / 42%);
   }
 }
 
 html {
-  scrollbar-color: oklch(0.52 0.025 260 / 36%) oklch(0.09 0.014 260);
+  scrollbar-color: oklch(0.55 0.04 64 / 36%) oklch(0.20 0.03 56);
 }
 
 .quote-markdown {
@@ -631,7 +601,7 @@ html.dark .quote-markdown {
 
 html.dark .quote-markdown-image {
   border-color: oklch(1 0 0 / 10%);
-  background: oklch(0.14 0.014 260);
+  background: oklch(0.22 0.03 56);
 }
 
 .blog-panel {
@@ -865,7 +835,7 @@ html.dark .home-post-cover {
 }
 
 html.dark .home-post-summary {
-  color: oklch(0.9 0.01 260 / 66%);
+  color: oklch(0.88 0.02 78 / 66%);
 }
 
 html.dark .home-feed-more-button {
@@ -959,8 +929,8 @@ html.dark .blog-post-link:hover {
 }
 
 .dark .navigation-overlay {
-  background: rgba(3, 5, 9, 0.94);
-  color: oklch(0.955 0.006 260);
+  background: rgba(28, 18, 10, 0.95);
+  color: oklch(0.94 0.014 78);
 }
 
 .navigation-menu-link {

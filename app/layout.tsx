@@ -10,7 +10,6 @@ import {
 } from "next/font/google"
 import { NextIntlClientProvider } from "next-intl"
 import { getLocale, getMessages } from "next-intl/server"
-import { ThemeProvider } from "@/components/layout/ThemeProvider"
 import { SessionProviderWrapper } from "@/components/auth/SessionProviderWrapper"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
@@ -101,18 +100,16 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
-      className={`${geistSans.variable} ${geistMono.variable} ${notoSansSC.variable} ${notoSerifSC.variable} ${dancingScript.variable} ${maShanZheng.variable} ${zcoolKuaile.variable} antialiased`}
+      className={`dark ${geistSans.variable} ${geistMono.variable} ${notoSansSC.variable} ${notoSerifSC.variable} ${dancingScript.variable} ${maShanZheng.variable} ${zcoolKuaile.variable} antialiased`}
       suppressHydrationWarning
     >
-      <body className="flex min-h-screen flex-col bg-background text-foreground" suppressHydrationWarning>
+      <body className="flex min-h-screen flex-col bg-background text-foreground">
         <NextIntlClientProvider messages={messages} locale={locale}>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-            <SessionProviderWrapper>
-              <Header />
-              <main className="flex-1 min-h-0">{children}</main>
-              <Footer />
-            </SessionProviderWrapper>
-          </ThemeProvider>
+          <SessionProviderWrapper>
+            <Header />
+            <main className="flex-1 min-h-0">{children}</main>
+            <Footer />
+          </SessionProviderWrapper>
         </NextIntlClientProvider>
       </body>
     </html>
